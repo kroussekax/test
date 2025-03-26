@@ -3,6 +3,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "window.hpp"
+
 #define DEBUG_MODE
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -15,24 +17,18 @@ int main(){
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWwindow* window = glfwCreateWindow(1280, 720, "j3c", NULL, NULL);
-	if(window == NULL){
-		std::cerr<<"failed to create a glfw window."<<std::endl;
-		glfwTerminate();
-		return -1;
-	}
-	glfwMakeContextCurrent(window);
+	Window window("j3c engine", 1280, 720);
 
 	gladLoadGL();
 	glViewport(0, 0, 1280, 720);
 
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	window.set_frame_buffer_size_callback(framebuffer_size_callback);
 
-	while(!glfwWindowShouldClose(window)){
+	while(!window.should_close()){
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glfwSwapBuffers(window);
+		window.swap_buffers();
 		glfwPollEvents();
 	}
 

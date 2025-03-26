@@ -8,15 +8,15 @@ private:
 	GLFWwindow* window;
 public:
 
-	bool should_close(){
+	bool should_close() const{
 		return glfwWindowShouldClose(window);
 	}
 
-	void swap_buffers(){
+	void swap_buffers() const{
 		glfwSwapBuffers(window);
 	}
 
-	void set_frame_buffer_size_callback(void(*callback)(GLFWwindow*, int, int)){
+	void set_frame_buffer_size_callback(void(*callback)(GLFWwindow*, int, int)) const{
 		glfwSetFramebufferSizeCallback(window, callback);
 	}
 
