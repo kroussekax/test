@@ -20,6 +20,8 @@ public:
 		glfwSetFramebufferSizeCallback(window, callback);
 	}
 
+	void input(float dt);
+
 	Window(const char* window_title, int width, int height);
 	Window();
 };

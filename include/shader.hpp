@@ -14,6 +14,8 @@ public:
 	void setInt(const std::string& name, int value) const;
 	void setFloat(const std::string& name, float value) const;
 
+	void Delete();
+
 	Shader(const char* vert_shader_parth, const char* frag_shader_parth);
 	Shader();
 };
