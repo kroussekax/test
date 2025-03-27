@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -33,7 +35,7 @@ private:
 public:
 	void Draw();
 
-	Mesh(const float* vertices, const unsigned int* indices,
+	Mesh(std::vector<float> vertices, std::vector<unsigned int> indices,
 		const char* vertex_shader_path="res/shaders/vertexshaders.glsl",
 		const char* fragment_shader_path= "res/shaders/fragmentshaders.glsl");
 	Mesh();

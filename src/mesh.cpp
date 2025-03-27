@@ -1,6 +1,5 @@
 #include "mesh.hpp"
 
-#include <GL/gl.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -15,6 +14,7 @@ void Mesh::linkAttrib(GLuint layout, GLuint numComponents, GLenum type, GLsizeip
 
 void Mesh::Draw(){
 	shader.use();
+	glActiveTexture(GL_TEXTURE0);
 	texture.Bind();
 	bind_vao();
 	glm::mat4 model = glm::mat4(1.0f);
@@ -23,29 +23,26 @@ void Mesh::Draw(){
 	glUniformMatrix4fv(model_loc, 1, GL_FALSE, glm::value_ptr(model));
 	//glDrawArrays(GL_TRIANGLES, 0, 36);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
 }
 
-Mesh::Mesh(const float* vertices, const unsigned int* indices,
-		const char* vertex_shader_path,
-		const char* fragment_shader_path){
+Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, const char* vertex_shader_path, const char* fragment_shader_path){
 	glEnable(GL_DEPTH_TEST);
 
-	Shader shader(vertex_shader_path, fragment_shader_path);
+	shader = Shader(vertex_shader_path, fragment_shader_path);
 
 	//VAO
 	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
 	bind_vao();
 
 	//VBO
+	glGenBuffers(1, &VBO);
 	bind_vbo();
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
 
 	//EBO
+	glGenBuffers(1, &EBO);
 	bind_ebo();
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 
 	linkAttrib(0, 3, GL_FLOAT, 5 * sizeof(float), (void*)0); /* coord */
 	linkAttrib(1, 2, GL_FLOAT, 5 * sizeof(float), (void*)(3 * sizeof(float))); /* texture coord */
@@ -64,6 +61,7 @@ Mesh::Mesh(const float* vertices, const unsigned int* indices,
 	pos = glm::vec3(0.0f, 0.0f, 0.0f);
 	model = glm::translate(model, pos);
 
+	shader.use();
 	glUniformMatrix4fv(model_loc, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(view_loc, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(projection_loc, 1, GL_FALSE, glm::value_ptr(projection));
@@ -73,5 +71,7 @@ Mesh::Mesh(){
 }
 
 Mesh::~Mesh(){
-
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
 }

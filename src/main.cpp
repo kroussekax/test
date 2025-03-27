@@ -6,6 +6,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <vector>
 
 #include "global_var.hpp"
 #include "mesh.hpp"
@@ -30,7 +31,7 @@ int main(){
 
 	window.set_frame_buffer_size_callback(framebuffer_size_callback);
 
-	float vertices[] = {
+	std::vector<float> vertices = {
 		// positions         // texture coords
 		0.5f,  0.5f, 0.0f,   1.0f, 1.0f,   // top right
 		0.5f, -0.5f, 0.0f,   1.0f, 0.0f,   // bottom right
@@ -38,12 +39,11 @@ int main(){
 		-0.5f,  0.5f, 0.0f,  0.0f, 1.0f    // top left
 	};
 
-	unsigned int indices[] = {
+	std::vector<unsigned int> indices = {
 		0, 1, 3,   // first triangle
 		1, 2, 3    // second triangle
 	};
 
-	std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>(Mesh(vertices, indices));
 
 	view = glm::mat4(1.0f);
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
@@ -52,11 +52,13 @@ int main(){
 
 	glViewport(0, 0, 1280, 720);
 
+	std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>(Mesh(vertices, indices, "res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl"));
+
 	float last_time = 0.0f;
 
 	while(!window.should_close()){
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		window.input(getDeltaTime(last_time));
 
