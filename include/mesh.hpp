@@ -12,8 +12,7 @@
 
 class Mesh {
 private:
-	unsigned int VAO, VBO, EBO;
-
+	unsigned int VBO, VAO, EBO;
 	Shader shader;
 	Texture texture;
 
@@ -22,22 +21,13 @@ private:
 	unsigned int projection_loc;
 	glm::vec3 pos;
 
-	void linkAttrib(GLuint layout, GLuint numComponents, GLenum type, GLsizeiptr stride, void* offset);
+	//void linkAttrib(GLuint layout, GLuint numComponents, GLenum type, GLsizeiptr stride, void* offset);
 
-	void bind_vao(){ glBindVertexArray(VAO); }
-	void unbind_vao(){ glBindVertexArray(0); }
-
-	void bind_vbo(){ glBindBuffer(GL_ARRAY_BUFFER, VBO); }
-	void unbind_vbo(){ glBindBuffer(GL_ARRAY_BUFFER, VBO); }
-
-	void bind_ebo(){ glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); }
-	void unbind_ebo(){ glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); }
 public:
 	void Draw();
 
 	Mesh(std::vector<float> vertices, std::vector<unsigned int> indices,
-		const char* vertex_shader_path="res/shaders/vertexshaders.glsl",
-		const char* fragment_shader_path= "res/shaders/fragmentshaders.glsl");
+		const char* vertex_shader_path, const char* fragment_shader_path, glm::vec3 pos);
 	Mesh();
 	~Mesh();
 };
