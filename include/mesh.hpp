@@ -25,7 +25,7 @@ private:
 public:
 	void Draw(Shader &shader);
 
-	Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos);
+	Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos, const char* texture_path);
 	Mesh();
 	~Mesh();
 };

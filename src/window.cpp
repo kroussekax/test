@@ -5,9 +5,6 @@
 #include <glm/ext/matrix_transform.hpp>
 
 void Window::input(float dt, Camera& camera){
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, true);
-
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		camera.ProcessKeyboard(ABOVE, dt);
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)

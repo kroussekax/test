@@ -8,6 +8,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 
+#include "glm/fwd.hpp"
 #include "globals.hpp"
 
 #include "mesh.hpp"
@@ -99,11 +100,20 @@ int main(){
 
 	glViewport(0, 0, 1280, 720);
 
-	Shader shader1("res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl"), shader2("res/shaders/vertexshaders.glsl", "res/shaders/frag2.glsl");
+	glm::vec4 sun_color(1.0f, .0f, .0f, .0f);
 
+	Shader mesh_shader("res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl");
+	glUniform4f(glGetUniformLocation(mesh_shader.get_id(), "lightColor"), sun_color.r, sun_color.g, sun_color.b, sun_color.w);
 
-	std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(.0f, .0f, .0f)));
-	std::unique_ptr<Mesh> mesh2 = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(1.0f, 2.0f, .0f)));
+	Shader sun_shader("res/shaders/vertexshaders.glsl", "res/shaders/frag2.glsl");
+	glUniform4f(glGetUniformLocation(sun_shader.get_id(), "lightColor"), sun_color.r, sun_color.g, sun_color.b, sun_color.w);
+
+	std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(.0f, .0f, .0f), "res/img/brick.jpg"));
+	std::unique_ptr<Mesh> mesh2 = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(1.0f, .0f, .0f), "res/img/brick.jpg"));
+	std::unique_ptr<Mesh> mesh3 = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(1.0f, .0f, -1.0f), "res/img/brick.jpg"));
+	std::unique_ptr<Mesh> mesh4 = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(.0f, .0f, -1.0f), "res/img/brick.jpg"));
+
+	std::unique_ptr<Mesh> sun = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(2.0f, 5.0f, 2.0f), "res/img/brick.jpg"));
 
 	// uncomment this call to draw in wireframe polygons.
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -114,8 +124,13 @@ int main(){
 
 		window.input(getDeltaTime(last_time), camera);
 
-		mesh->Draw(shader1);
-		mesh2->Draw(shader2);
+		mesh->Draw(mesh_shader);
+		mesh2->Draw(mesh_shader);
+		mesh3->Draw(mesh_shader);
+		mesh4->Draw(mesh_shader);
+
+		sun->Draw(sun_shader);
+
 
 		projection = glm::perspective(glm::radians(camera.Zoom), (float)1000 / (float)1000, 0.1f, 100.0f);
 		view = camera.GetViewMatrix();

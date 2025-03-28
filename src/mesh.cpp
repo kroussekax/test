@@ -11,7 +11,7 @@ void Mesh::Draw(Shader &shader){
 	shader.use();
 	glActiveTexture(GL_TEXTURE0);
 	texture.Bind();
-	glBindVertexArray(1);
+	glBindVertexArray(VAO);
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, pos);
 
@@ -22,7 +22,7 @@ void Mesh::Draw(Shader &shader){
 	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
-Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos){
+Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos, const char* texture_path){
 	glEnable(GL_DEPTH_TEST);
 
 	glGenVertexArrays(1, &VAO);
@@ -44,7 +44,7 @@ Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, glm::
 	this->pos = pos;
 	model = glm::translate(model, pos);
 
-	texture = Texture(GL_TEXTURE_2D, "res/img/brick.jpg");
+	texture = Texture(GL_TEXTURE_2D, texture_path);
 }
 
 Mesh::Mesh(){
