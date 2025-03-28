@@ -8,15 +8,15 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 
-#include "global_var.hpp"
+#include "globals.hpp"
+
 #include "mesh.hpp"
 #include "window.hpp"
 
 #define DEBUG_MODE
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-
-float getDeltaTime(float& last_time);
+void linkAttrib(unsigned int& vbo, GLuint layout, GLuint numComponents, GLenum type, GLsizeiptr stride, void* offset);
 
 int main(){
 	glfwInit();
@@ -25,18 +25,57 @@ int main(){
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	Window window("j3c engine", 1280, 720);
+	Window window("j3c engine", 800, 800);
 
 	gladLoadGL();
 
+	glEnable(GL_DEPTH_TEST);
+
 	window.set_frame_buffer_size_callback(framebuffer_size_callback);
 
+
 	std::vector<float> vertices = {
-		// positions         // texture coords
-		0.5f,  0.5f, 0.0f,   1.0f, 1.0f,   // top right
-		0.5f, -0.5f, 0.0f,   1.0f, 0.0f,   // bottom right
-		-0.5f, -0.5f, 0.0f,  0.0f, 0.0f,   // bottom left
-		-0.5f,  0.5f, 0.0f,  0.0f, 1.0f    // top left
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 	};
 
 	std::vector<unsigned int> indices = {
@@ -52,7 +91,11 @@ int main(){
 
 	glViewport(0, 0, 1280, 720);
 
-	std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>(Mesh(vertices, indices, "res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl"));
+	std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>(Mesh(vertices, indices, "res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl", glm::vec3(.0f, .0f, .0f)));
+	std::unique_ptr<Mesh> mesh2 = std::make_unique<Mesh>(Mesh(vertices, indices, "res/shaders/vertexshaders.glsl", "res/shaders/frag2.glsl", glm::vec3(1.0f, 2.0f, .0f)));
+
+	// uncomment this call to draw in wireframe polygons.
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	float last_time = 0.0f;
 
@@ -63,6 +106,7 @@ int main(){
 		window.input(getDeltaTime(last_time));
 
 		mesh->Draw();
+		mesh2->Draw();
 
 		window.swap_buffers();
 		glfwPollEvents();
@@ -76,17 +120,4 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height){
 #ifdef DEBUG_MODE
 	std::cout<<"Window Resized: "<<width<<", "<<height<<std::endl;
 #endif
-}
-
-float getDeltaTime(float& last_time){
-	// Get current time
-	float currentTime = static_cast<float>(glfwGetTime());
-
-	// Calculate delta time
-	float deltaTime = currentTime - last_time;
-
-	// Update last time to current time
-	last_time = currentTime;
-
-	return deltaTime;
 }

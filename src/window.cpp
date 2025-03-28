@@ -4,7 +4,7 @@
 
 #include <glm/ext/matrix_transform.hpp>
 
-#include "global_var.hpp"
+#include "globals.hpp"
 
 void Window::input(float dt){
     if(glfwGetKey(window, GLFW_KEY_RIGHT))
