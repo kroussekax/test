@@ -20,8 +20,9 @@ static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
-float lastX = 800 / 2.0f;
-float lastY = 800 / 2.0f;
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+float lastX = 1000 / 2.0f;
+float lastY = 1000 / 2.0f;
 bool firstMouse = true;
 
 int main(){
@@ -31,7 +32,7 @@ int main(){
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	Window window("j3c engine", 800, 800);
+	Window window("j3c engine", 1000, 1000);
 
 	gladLoadGL();
 
@@ -40,7 +41,6 @@ int main(){
 	window.set_frame_buffer_size_callback(framebuffer_size_callback);
 	window.set_mouse_callback(mouse_callback);
 	window.set_scroll_callback(scroll_callback);
-
 
 	std::vector<float> vertices = {
 		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -95,7 +95,7 @@ int main(){
 	view = glm::mat4(1.0f);
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 
-	projection = glm::perspective(glm::radians(45.0f), 800.0f / 800.0f, 0.1f, 100.0f);
+	projection = glm::perspective(glm::radians(45.0f), 1000.0f / 1000.0f, 0.1f, 100.0f);
 
 	glViewport(0, 0, 1280, 720);
 
@@ -105,18 +105,16 @@ int main(){
 	// uncomment this call to draw in wireframe polygons.
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	float last_time = 0.0f;
-
 	while(!window.should_close()){
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		window.input(getDeltaTime(last_time));
+		window.input(getDeltaTime(last_time), camera);
 
 		mesh->Draw();
 		mesh2->Draw();
 
-		projection = glm::perspective(glm::radians(camera.Zoom), (float)800 / (float)800, 0.1f, 100.0f);
+		projection = glm::perspective(glm::radians(camera.Zoom), (float)1000 / (float)1000, 0.1f, 100.0f);
 		view = camera.GetViewMatrix();
 
 		window.swap_buffers();

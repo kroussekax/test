@@ -78,22 +78,23 @@ public:
 	void ProcessKeyboard(Camera_Movement direction, float deltaTime){
 		float velocity = MovementSpeed * deltaTime;
 		if (direction == ABOVE)
-			Position.y += 1.0 * velocity;
+			Position.g += MovementSpeed * velocity;
 		if (direction == DOWN)
-			Position.y -= 1.0 * velocity;
+			Position.g -= MovementSpeed * velocity;
 
 		if (direction == FORWARD)
-			Position.z +=  Front.z * velocity;
+			Position += Front * velocity;
 		if (direction == BACKWARD)
-			Position.z -=  Front.z * velocity;
+			Position -= Front * velocity;
 		if (direction == LEFT)
-			Position.x -= Right.x * velocity;
+			Position -= Right * velocity;
 		if (direction == RIGHT)
-			Position.x += Right.x * velocity;
+			Position += Right * velocity;
 	}
 
 	// processes input received from a mouse input system. Expects the offset value in both the x and y direction.
-	void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true){
+	void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true)
+	{
 		xoffset *= MouseSensitivity;
 		yoffset *= MouseSensitivity;
 
@@ -101,7 +102,8 @@ public:
 		Pitch += yoffset;
 
 		// make sure that when pitch is out of bounds, screen doesn't get flipped
-		if (constrainPitch){
+		if (constrainPitch)
+		{
 			if (Pitch > 89.0f)
 				Pitch = 89.0f;
 			if (Pitch < -89.0f)
@@ -113,7 +115,8 @@ public:
 	}
 
 	// processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
-	void ProcessMouseScroll(float yoffset){
+	void ProcessMouseScroll(float yoffset)
+	{
 		Zoom -= (float)yoffset;
 		if (Zoom < 1.0f)
 			Zoom = 1.0f;

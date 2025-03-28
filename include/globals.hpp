@@ -5,11 +5,9 @@
 
 #include <glm/glm.hpp>
 
-#include "camera.hpp"
-
 inline glm::mat4 view;
 inline glm::mat4 projection;
-inline Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+inline float last_time = 0.0f;
 
 float getDeltaTime(float& last_time);
 

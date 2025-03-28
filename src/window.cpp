@@ -4,9 +4,7 @@
 
 #include <glm/ext/matrix_transform.hpp>
 
-#include "globals.hpp"
-
-void Window::input(float dt){
+void Window::input(float dt, Camera& camera){
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 

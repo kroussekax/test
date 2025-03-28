@@ -3,6 +3,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "camera.hpp"
+
 class Window{
 private:
 	GLFWwindow* window;
@@ -27,7 +29,7 @@ public:
 		glfwSetScrollCallback(window, callback);
 	}
 
-	void input(float dt);
+	void input(float dt, Camera& camera);
 
 	Window(const char* window_title, int width, int height);
 	Window();
