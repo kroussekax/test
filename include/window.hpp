@@ -6,6 +6,7 @@
 class Window{
 private:
 	GLFWwindow* window;
+
 public:
 
 	bool should_close() const{
@@ -18,6 +19,12 @@ public:
 
 	void set_frame_buffer_size_callback(void(*callback)(GLFWwindow*, int, int)) const{
 		glfwSetFramebufferSizeCallback(window, callback);
+	}
+	void set_mouse_callback(void(*callback)(GLFWwindow*, double, double)) const{
+		glfwSetCursorPosCallback(window, callback);
+	}
+	void set_scroll_callback(void(*callback)(GLFWwindow*, double, double)) const{
+		glfwSetScrollCallback(window, callback);
 	}
 
 	void input(float dt);

@@ -7,28 +7,17 @@
 #include "globals.hpp"
 
 void Window::input(float dt){
-    if(glfwGetKey(window, GLFW_KEY_RIGHT))
-        view = glm::rotate(view, glm::radians(-55.0f * dt), glm::vec3(0.0f, 1.0f, 0.0f));
-    if(glfwGetKey(window, GLFW_KEY_LEFT))
-        view = glm::rotate(view, glm::radians(55.0f * dt), glm::vec3(0.0f, 1.0f, 0.0f));
-    if(glfwGetKey(window, GLFW_KEY_UP))
-        view = glm::rotate(view, glm::radians(55.0f * dt), glm::vec3(1.0f, 0.0f, 0.0f));
-    if(glfwGetKey(window, GLFW_KEY_DOWN))
-        view = glm::rotate(view, glm::radians(-55.0f * dt), glm::vec3(1.0f, 0.0f, 0.0f));
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
 
-    if(glfwGetKey(window, GLFW_KEY_SPACE))
-        view = glm::translate(view, glm::vec3(0.0f, -dt, 0.0f));
-    if(glfwGetKey(window, GLFW_KEY_LEFT_SHIFT))
-        view = glm::translate(view, glm::vec3(0.0f, dt, 0.0f));
-
-    if(glfwGetKey(window, GLFW_KEY_W))
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, dt));
-    if(glfwGetKey(window, GLFW_KEY_A))
-        view = glm::translate(view, glm::vec3(dt, 0.0f, 0.0f));
-    if(glfwGetKey(window, GLFW_KEY_S))
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -dt));
-    if(glfwGetKey(window, GLFW_KEY_D))
-        view = glm::translate(view, glm::vec3(-dt, 0.0f, 0.0f));
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		camera.ProcessKeyboard(FORWARD, dt);
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		camera.ProcessKeyboard(BACKWARD, dt);
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		camera.ProcessKeyboard(LEFT, dt);
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		camera.ProcessKeyboard(RIGHT, dt);
 }
 
 Window::Window(const char* window_title, int width, int height){
@@ -38,6 +27,8 @@ Window::Window(const char* window_title, int width, int height){
 		glfwTerminate();
 	}
 	glfwMakeContextCurrent(window);
+
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 Window::Window(){
