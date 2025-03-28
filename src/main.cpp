@@ -99,8 +99,11 @@ int main(){
 
 	glViewport(0, 0, 1280, 720);
 
-	std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>(Mesh(vertices, indices, "res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl", glm::vec3(.0f, .0f, .0f)));
-	std::unique_ptr<Mesh> mesh2 = std::make_unique<Mesh>(Mesh(vertices, indices, "res/shaders/vertexshaders.glsl", "res/shaders/frag2.glsl", glm::vec3(1.0f, 2.0f, .0f)));
+	Shader shader1("res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl"), shader2("res/shaders/vertexshaders.glsl", "res/shaders/frag2.glsl");
+
+
+	std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(.0f, .0f, .0f)));
+	std::unique_ptr<Mesh> mesh2 = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(1.0f, 2.0f, .0f)));
 
 	// uncomment this call to draw in wireframe polygons.
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -111,8 +114,8 @@ int main(){
 
 		window.input(getDeltaTime(last_time), camera);
 
-		mesh->Draw();
-		mesh2->Draw();
+		mesh->Draw(shader1);
+		mesh2->Draw(shader2);
 
 		projection = glm::perspective(glm::radians(camera.Zoom), (float)1000 / (float)1000, 0.1f, 100.0f);
 		view = camera.GetViewMatrix();
