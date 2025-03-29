@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <memory>
+#include <format>
 #include <iostream>
 #include <ostream>
 #include <vector>
@@ -19,6 +20,7 @@
 
 #include "mesh.hpp"
 #include "window.hpp"
+#include "input_manager.hpp"
 
 #define DEBUG_MODE
 
@@ -33,6 +35,11 @@ Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = 1000 / 2.0f;
 float lastY = 1000 / 2.0f;
 bool firstMouse = true;
+
+std::vector<std::unique_ptr<Mesh>> level{};
+
+int current_mesh;
+std::unique_ptr<Mesh> highlight_mesh;
 
 int main(){
 	glfwInit();
@@ -95,52 +102,6 @@ int main(){
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 	};
 
-	/*
-	std::vector<float> vertices = {
-		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, 0.0f,  0.0f, -1.0f,
-		0.5f, -0.5f, -0.5f,		1.0f, 0.0f, 0.0f,  0.0f, -1.0f,
-		0.5f,  0.5f, -0.5f,		1.0f, 1.0f, 0.0f,  0.0f, -1.0f,
-		0.5f,  0.5f, -0.5f,		1.0f, 1.0f, 0.0f,  0.0f, -1.0f,
-		-0.5f,  0.5f, -0.5f,	0.0f, 1.0f, 0.0f,  0.0f, -1.0f,
-		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, 0.0f,  0.0f, -1.0f,
-
-		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 0.0f,  0.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,		1.0f, 0.0f, 0.0f,  0.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,		1.0f, 1.0f, 0.0f,  0.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,		1.0f, 1.0f, 0.0f,  0.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 0.0f,  0.0f, 1.0f,
-
-		-0.5f,  0.5f,  0.5f,	1.0f, 0.0f,-1.0f,  0.0f,  0.0f,
-		-0.5f,  0.5f, -0.5f,	1.0f, 1.0f,-1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f,	0.0f, 1.0f,-1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f,	0.0f, 1.0f,-1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f,-1.0f,  0.0f,  0.0f,
-		-0.5f,  0.5f,  0.5f,	1.0f, 0.0f,-1.0f,  0.0f,  0.0f,
-
-		0.5f,  0.5f,  0.5f,		1.0f, 0.0f, 1.0f,  0.0f,  0.0f,
-		0.5f,  0.5f, -0.5f,		1.0f, 1.0f, 1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,		0.0f, 1.0f, 1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,		0.0f, 1.0f, 1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,		0.0f, 0.0f, 1.0f,  0.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,		1.0f, 0.0f, 1.0f,  0.0f,  0.0f,
-
-		-0.5f, -0.5f, -0.5f,	0.0f, 1.0f, 0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,		1.0f, 1.0f, 0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,		1.0f, 0.0f, 0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,		1.0f, 0.0f, 0.0f, -1.0f,  0.0f,
-		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 0.0f, -1.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f,	0.0f, 1.0f, 0.0f, -1.0f,  0.0f,
-
-		-0.5f,  0.5f, -0.5f,	0.0f, 1.0f, 0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f, -0.5f,		1.0f, 1.0f, 0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,		1.0f, 0.0f, 0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,		1.0f, 0.0f, 0.0f,  1.0f,  0.0f,
-		-0.5f,  0.5f,  0.5f,	0.0f, 0.0f, 0.0f,  1.0f,  0.0f,
-		-0.5f,  0.5f, -0.5f,	0.0f, 1.0f, 0.0f,  1.0f,  0.0f
-	};
-	*/
-
 	std::vector<unsigned int> indices = {
 		0, 1, 3,   // first triangle
 		1, 2, 3    // second triangle
@@ -158,14 +119,19 @@ int main(){
 	Shader mesh_shader("res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl");
 	glUniform4f(glGetUniformLocation(mesh_shader.get_id(), "lightColor"), sun_color.r, sun_color.g, sun_color.b, sun_color.w);
 
-	Shader sun_shader("res/shaders/vert2.glsl", "res/shaders/frag2.glsl");
+	Shader highlight_shader("res/shaders/no_texture_vert.glsl", "res/shaders/fraghighlight.glsl");
+	highlight_mesh = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(2.0f, 2.0f, 2.0f), "res/img/brick.jpg"));
+
+	Shader sun_shader("res/shaders/no_texture_vert.glsl", "res/shaders/light_fragment.glsl");
 	glUniform4fv(glGetUniformLocation(sun_shader.get_id(), "lightColor"), 1, &sun_color[0]);
 
 	std::unique_ptr<Mesh> sun = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(2.0f, 2.0f, 2.0f), "res/img/brick.jpg"));
-	glUniform3fv(glGetUniformLocation(sun_shader.get_id(), "lightPos"), 1, &sun->get_position()[0]);
 
-	std::vector<std::unique_ptr<Mesh>> level{};
 	level.push_back(std::make_unique<Mesh>(vertices, indices, glm::vec3(.0f, .0f, .0f), "res/img/brick.jpg"));
+	level.push_back(std::make_unique<Mesh>(vertices, indices, glm::vec3(1.0f, 0.0f, .0f), "res/img/brick.jpg"));
+	current_mesh = 0;
+
+	highlight_mesh->get_position() = level[0]->get_position();
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -189,11 +155,13 @@ int main(){
 		mesh_shader.use();
 		glUniform3f(glGetUniformLocation(mesh_shader.get_id(), "objectColor"), 1.0f, 0.5f, 0.31f);
 		glUniform3f(glGetUniformLocation(mesh_shader.get_id(), "lightColor"), 1.0f, 1.0f, 1.0f);
-		glUniform3fv(glGetUniformLocation(sun_shader.get_id(), "lightPos"), 1, &sun->get_position()[0]);
 
-		for(auto& e:level){
-			e->Draw(mesh_shader);
+		for(int i=0;i<level.size();i++){
+			if(current_mesh != i)
+				level[i]->Draw(mesh_shader);
 		}
+
+		highlight_mesh->Draw(highlight_shader);
 
 		sun->Draw(sun_shader);
 
@@ -206,6 +174,20 @@ int main(){
 			ImGui::SliderFloat("Camera Speed", &MovementSpeed, .0f, 5.0f);
 			float fps = 1.0f / getDeltaTime(last_time);
 			ImGui::Text("FPS: %.2f", fps);
+			ImGui::Text("Total Mesh: %i", (int)level.size());
+		}
+		ImGui::End();
+
+		ImGui::Begin("Mesh Control Panel");
+		{
+			ImGui::Text("Current Mesh: %i", current_mesh);
+			ImGui::SliderFloat(std::format("Mesh {0} X", current_mesh).c_str(), &level[current_mesh]->get_position().x, -10.0f, 10.0f);
+			ImGui::SliderFloat(std::format("Mesh {0} Y", current_mesh).c_str(), &level[current_mesh]->get_position().y, -10.0f, 10.0f);
+			ImGui::SliderFloat(std::format("Mesh {0} Z", current_mesh).c_str(), &level[current_mesh]->get_position().z, -10.0f, 10.0f);
+
+			if(ImGui::Button("New Mesh", ImVec2(101, 30))){
+				level.push_back(std::make_unique<Mesh>(vertices, indices, glm::vec3(1.0f, 0.0f, .0f), "res/img/brick.jpg"));
+			}
 		}
 		ImGui::End();
 
@@ -260,17 +242,27 @@ static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 }
 
 void process_input(float dt, Camera& camera, Window* window){
-	if(window->check_key(GLFW_KEY_W) == GLFW_PRESS)
+	if(InputManager::IsKeyDown(GLFW_KEY_W) == GLFW_PRESS)
 		camera.ProcessKeyboard(FORWARD, dt);
-	if(window->check_key(GLFW_KEY_S) == GLFW_PRESS)
+	if(InputManager::IsKeyDown(GLFW_KEY_S) == GLFW_PRESS)
 		camera.ProcessKeyboard(BACKWARD, dt);
-	if(window->check_key(GLFW_KEY_A) == GLFW_PRESS)
+	if(InputManager::IsKeyDown(GLFW_KEY_A) == GLFW_PRESS)
 		camera.ProcessKeyboard(LEFT, dt);
-	if(window->check_key(GLFW_KEY_D) == GLFW_PRESS)
+	if(InputManager::IsKeyDown(GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, dt);
 
-	if(window->check_key(GLFW_KEY_SPACE) == GLFW_PRESS)
+	if(InputManager::IsKeyDown(GLFW_KEY_SPACE) == GLFW_PRESS)
 		camera.ProcessKeyboard(ABOVE, dt);
-	if(window->check_key(GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+	if(InputManager::IsKeyDown(GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		camera.ProcessKeyboard(DOWN, dt);
+
+	if(InputManager::IsKeyPressed(GLFW_KEY_RIGHT)){
+		current_mesh++;
+		highlight_mesh->get_position() = level[current_mesh]->get_position();
+	}
+	if(InputManager::IsKeyPressed(GLFW_KEY_LEFT)) current_mesh--;
+
+	if(current_mesh < 0) current_mesh = 0;
+	if(current_mesh > level.size()-1) current_mesh = level.size()-1;
+	highlight_mesh->get_position() = level[current_mesh]->get_position();
 }
