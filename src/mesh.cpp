@@ -50,6 +50,3 @@ Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, glm::
 
 Mesh::Mesh(){
 }
-
-Mesh::~Mesh(){
-}

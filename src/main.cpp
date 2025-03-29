@@ -1,8 +1,6 @@
-#include <chrono>
 #include <cstdio>
-#include <format>
-#include <iostream>
 #include <memory>
+#include <iostream>
 #include <ostream>
 #include <vector>
 
@@ -163,13 +161,11 @@ int main(){
 	Shader sun_shader("res/shaders/vert2.glsl", "res/shaders/frag2.glsl");
 	glUniform4fv(glGetUniformLocation(sun_shader.get_id(), "lightColor"), 1, &sun_color[0]);
 
-	std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(.0f, .0f, .0f), "res/img/brick.jpg"));
-	std::unique_ptr<Mesh> mesh2 = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(1.0f, .0f, .0f), "res/img/brick.jpg"));
-	std::unique_ptr<Mesh> mesh3 = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(1.0f, .0f, -1.0f), "res/img/brick.jpg"));
-	std::unique_ptr<Mesh> mesh4 = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(.0f, .0f, -1.0f), "res/img/brick.jpg"));
-
 	std::unique_ptr<Mesh> sun = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(2.0f, 2.0f, 2.0f), "res/img/brick.jpg"));
 	glUniform3fv(glGetUniformLocation(sun_shader.get_id(), "lightPos"), 1, &sun->get_position()[0]);
+
+	std::vector<std::unique_ptr<Mesh>> level{};
+	level.push_back(std::make_unique<Mesh>(vertices, indices, glm::vec3(.0f, .0f, .0f), "res/img/brick.jpg"));
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -195,10 +191,9 @@ int main(){
 		glUniform3f(glGetUniformLocation(mesh_shader.get_id(), "lightColor"), 1.0f, 1.0f, 1.0f);
 		glUniform3fv(glGetUniformLocation(sun_shader.get_id(), "lightPos"), 1, &sun->get_position()[0]);
 
-		mesh->Draw(mesh_shader);
-		mesh2->Draw(mesh_shader);
-		mesh3->Draw(mesh_shader);
-		mesh4->Draw(mesh_shader);
+		for(auto& e:level){
+			e->Draw(mesh_shader);
+		}
 
 		sun->Draw(sun_shader);
 
@@ -207,7 +202,7 @@ int main(){
 
 		ImGui::Begin("J3C Control Window");
 		{
-			ImGui::SliderFloat("Mesh1 Pos", &mesh->get_position().x, .0f, 5.0f);
+			//ImGui::SliderFloat("Mesh1 Pos", &mesh->get_position().x, .0f, 5.0f);
 			ImGui::SliderFloat("Camera Speed", &MovementSpeed, .0f, 5.0f);
 			float fps = 1.0f / getDeltaTime(last_time);
 			ImGui::Text("FPS: %.2f", fps);
