@@ -37,8 +37,9 @@ Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, glm::
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(float), indices.data(), GL_STATIC_DRAW);
 
-	linkAttrib(VBO, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0); /* coord */
-	linkAttrib(VBO, 1, 2, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float))); /* texture coord */
+	linkAttrib(VBO, 0, 3, GL_FLOAT, 5 * sizeof(float), (void*)0); /* coord */
+	linkAttrib(VBO, 1, 2, GL_FLOAT, 5 * sizeof(float), (void*)(3 * sizeof(float))); /* texture coord */
+	//linkAttrib(VBO, 2, 2, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float))); /* texture coord */
 
 	glm::mat4 model = glm::mat4(1.0f);
 	this->pos = pos;

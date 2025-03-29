@@ -1,5 +1,8 @@
 #pragma once
 
+#include <imgui.h>
+
+#include "globals.hpp"
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -48,24 +51,25 @@ public:
 	float Yaw;
 	float Pitch;
 	// camera options
-	float MovementSpeed;
 	float MouseSensitivity;
 	float Zoom;
 
 	// constructor with vectors
-	Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM){
+	Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) : Front(glm::vec3(0.0f, 0.0f, -1.0f)),  MouseSensitivity(SENSITIVITY), Zoom(ZOOM){
 		Position = position;
 		WorldUp = up;
 		Yaw = yaw;
 		Pitch = pitch;
+		MovementSpeed = SPEED;
 		updateCameraVectors();
 	}
 	// constructor with scalar values
-	Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM){
+	Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MouseSensitivity(SENSITIVITY), Zoom(ZOOM){
 		Position = glm::vec3(posX, posY, posZ);
 		WorldUp = glm::vec3(upX, upY, upZ);
 		Yaw = yaw;
 		Pitch = pitch;
+		MovementSpeed = SPEED;
 		updateCameraVectors();
 	}
 
@@ -95,32 +99,36 @@ public:
 	// processes input received from a mouse input system. Expects the offset value in both the x and y direction.
 	void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true)
 	{
-		xoffset *= MouseSensitivity;
-		yoffset *= MouseSensitivity;
+		if(!ImGui::GetIO().WantCaptureMouse && cam_should_move){
+			xoffset *= MouseSensitivity;
+			yoffset *= MouseSensitivity;
 
-		Yaw   += xoffset;
-		Pitch += yoffset;
+			Yaw   += xoffset;
+			Pitch += yoffset;
 
-		// make sure that when pitch is out of bounds, screen doesn't get flipped
-		if (constrainPitch)
-		{
-			if (Pitch > 89.0f)
-				Pitch = 89.0f;
-			if (Pitch < -89.0f)
-				Pitch = -89.0f;
+			// make sure that when pitch is out of bounds, screen doesn't get flipped
+			if (constrainPitch)
+			{
+				if (Pitch > 89.0f)
+					Pitch = 89.0f;
+				if (Pitch < -89.0f)
+					Pitch = -89.0f;
+			}
+
+			// update Front, Right and Up Vectors using the updated Euler angles
+			updateCameraVectors();
 		}
-
-		// update Front, Right and Up Vectors using the updated Euler angles
-		updateCameraVectors();
 	}
 
 	// processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
 	void ProcessMouseScroll(float yoffset)
 	{
-		MovementSpeed += (float)yoffset;
-		if(MovementSpeed < 1.0f)
-			MovementSpeed = 1.0f;
-		if(MovementSpeed > 45.0f)
-			MovementSpeed = 45.0f;
+		if(!ImGui::GetIO().WantCaptureMouse && cam_should_move){
+			MovementSpeed += (float)yoffset;
+			if(MovementSpeed < 1.0f)
+				MovementSpeed = 1.0f;
+			if(MovementSpeed > 45.0f)
+				MovementSpeed = 45.0f;
+		}
 	}
 };

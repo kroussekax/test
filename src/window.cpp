@@ -4,20 +4,21 @@
 
 #include <glm/ext/matrix_transform.hpp>
 
-void Window::input(float dt, Camera& camera){
-	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-		camera.ProcessKeyboard(ABOVE, dt);
-	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-		camera.ProcessKeyboard(DOWN, dt);
+#include "globals.hpp"
+#include "input_manager.hpp"
 
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		camera.ProcessKeyboard(FORWARD, dt);
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		camera.ProcessKeyboard(BACKWARD, dt);
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		camera.ProcessKeyboard(LEFT, dt);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		camera.ProcessKeyboard(RIGHT, dt);
+void Window::input(float dt, Camera& camera){
+	InputManager::Update(window);
+
+	if(InputManager::IsKeyPressed(GLFW_KEY_CAPS_LOCK)){
+		if(glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		else
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		cam_should_move = !cam_should_move;
+	}
+
+	custom_input_impl(dt, camera, this);
 }
 
 Window::Window(const char* window_title, int width, int height){
@@ -27,8 +28,10 @@ Window::Window(const char* window_title, int width, int height){
 		glfwTerminate();
 	}
 	glfwMakeContextCurrent(window);
+	glfwSwapInterval(1); // 1 = Enable V-Sync, 0 = Disable
 
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	switch_mouse_mode = false;
 }
 
 Window::Window(){
