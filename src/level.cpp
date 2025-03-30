@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <format>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -53,12 +54,42 @@ void Level::Draw_UI(){
 		if(ImGui::Button("Save", ImVec2(101, 30))){
 			save();
 		}
+
+		if(ImGui::Button("Load", ImVec2(101, 30))){
+			load();
+		}
 	}
 	ImGui::End();
 
 }
 
 void Level::load(){
+	//resetting
+	meshes.clear();
+	current_mesh = 0;
+
+	std::string path = "res/" ;
+	path.append(lvl_name);
+	path.append(".json");
+
+	std::ifstream file(path);
+	if (!file.is_open()) {
+		std::cerr << "Failed to open file!" << std::endl;
+	}
+
+	// Parse JSON
+	json j;
+	file >> j;
+	file.close();
+
+	// Extract "data" field
+	if (j.contains("data") && j["data"].is_array()) {
+		for (const auto& arr : j["data"]) {
+			if (arr.is_array() && arr.size() == 3) {
+				add_mesh(glm::vec3(arr[0], arr[1], arr[2]));
+			}
+		}
+	}
 }
 
 void Level::save(){
