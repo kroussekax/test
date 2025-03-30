@@ -18,6 +18,7 @@
 
 #include "globals.hpp"
 
+#include "level.hpp"
 #include "mesh.hpp"
 #include "window.hpp"
 #include "input_manager.hpp"
@@ -36,10 +37,7 @@ float lastX = 1000 / 2.0f;
 float lastY = 1000 / 2.0f;
 bool firstMouse = true;
 
-std::vector<std::unique_ptr<Mesh>> level{};
-
-int current_mesh;
-std::unique_ptr<Mesh> highlight_mesh;
+std::unique_ptr<Level> level;
 
 int main(){
 	glfwInit();
@@ -112,26 +110,9 @@ int main(){
 
 	projection = glm::perspective(glm::radians(45.0f), 1000.0f / 1000.0f, 0.1f, 100.0f);
 
+	level = std::make_unique<Level>(vertices, indices);
+
 	glViewport(0, 0, 1280, 720);
-
-	glm::vec4 sun_color(0.949, 1.000, 0.157, .0f);
-
-	Shader mesh_shader("res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl");
-	glUniform4f(glGetUniformLocation(mesh_shader.get_id(), "lightColor"), sun_color.r, sun_color.g, sun_color.b, sun_color.w);
-
-	Shader highlight_shader("res/shaders/no_texture_vert.glsl", "res/shaders/fraghighlight.glsl");
-	highlight_mesh = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(2.0f, 2.0f, 2.0f), "res/img/brick.jpg"));
-
-	Shader sun_shader("res/shaders/no_texture_vert.glsl", "res/shaders/light_fragment.glsl");
-	glUniform4fv(glGetUniformLocation(sun_shader.get_id(), "lightColor"), 1, &sun_color[0]);
-
-	std::unique_ptr<Mesh> sun = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(2.0f, 2.0f, 2.0f), "res/img/brick.jpg"));
-
-	level.push_back(std::make_unique<Mesh>(vertices, indices, glm::vec3(.0f, .0f, .0f), "res/img/brick.jpg"));
-	level.push_back(std::make_unique<Mesh>(vertices, indices, glm::vec3(1.0f, 0.0f, .0f), "res/img/brick.jpg"));
-	current_mesh = 0;
-
-	highlight_mesh->get_position() = level[0]->get_position();
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -152,18 +133,7 @@ int main(){
 
 		window.input(getDeltaTime(last_time), camera);
 
-		mesh_shader.use();
-		glUniform3f(glGetUniformLocation(mesh_shader.get_id(), "objectColor"), 1.0f, 0.5f, 0.31f);
-		glUniform3f(glGetUniformLocation(mesh_shader.get_id(), "lightColor"), 1.0f, 1.0f, 1.0f);
-
-		for(int i=0;i<level.size();i++){
-			if(current_mesh != i)
-				level[i]->Draw(mesh_shader);
-		}
-
-		highlight_mesh->Draw(highlight_shader);
-
-		sun->Draw(sun_shader);
+		level->Draw();
 
 		projection = glm::perspective(glm::radians(camera.Zoom), (float)1000 / (float)1000, 0.1f, 100.0f);
 		view = camera.GetViewMatrix();
@@ -174,22 +144,10 @@ int main(){
 			ImGui::SliderFloat("Camera Speed", &MovementSpeed, .0f, 5.0f);
 			float fps = 1.0f / getDeltaTime(last_time);
 			ImGui::Text("FPS: %.2f", fps);
-			ImGui::Text("Total Mesh: %i", (int)level.size());
 		}
 		ImGui::End();
 
-		ImGui::Begin("Mesh Control Panel");
-		{
-			ImGui::Text("Current Mesh: %i", current_mesh);
-			ImGui::SliderFloat(std::format("Mesh {0} X", current_mesh).c_str(), &level[current_mesh]->get_position().x, -10.0f, 10.0f);
-			ImGui::SliderFloat(std::format("Mesh {0} Y", current_mesh).c_str(), &level[current_mesh]->get_position().y, -10.0f, 10.0f);
-			ImGui::SliderFloat(std::format("Mesh {0} Z", current_mesh).c_str(), &level[current_mesh]->get_position().z, -10.0f, 10.0f);
-
-			if(ImGui::Button("New Mesh", ImVec2(101, 30))){
-				level.push_back(std::make_unique<Mesh>(vertices, indices, glm::vec3(1.0f, 0.0f, .0f), "res/img/brick.jpg"));
-			}
-		}
-		ImGui::End();
+		level->Draw_UI();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -255,14 +213,4 @@ void process_input(float dt, Camera& camera, Window* window){
 		camera.ProcessKeyboard(ABOVE, dt);
 	if(InputManager::IsKeyDown(GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		camera.ProcessKeyboard(DOWN, dt);
-
-	if(InputManager::IsKeyPressed(GLFW_KEY_RIGHT)){
-		current_mesh++;
-		highlight_mesh->get_position() = level[current_mesh]->get_position();
-	}
-	if(InputManager::IsKeyPressed(GLFW_KEY_LEFT)) current_mesh--;
-
-	if(current_mesh < 0) current_mesh = 0;
-	if(current_mesh > level.size()-1) current_mesh = level.size()-1;
-	highlight_mesh->get_position() = level[current_mesh]->get_position();
 }
