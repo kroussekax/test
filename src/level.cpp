@@ -1,10 +1,17 @@
 #include "level.hpp"
 
+#include <iostream>
+#include <fstream>
 #include <format>
+#include <string>
+#include <vector>
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
+
+#include <json.hpp>
+using json=nlohmann::json;
 
 #include "input_manager.hpp"
 
@@ -40,9 +47,48 @@ void Level::Draw_UI(){
 	}
 	ImGui::End();
 
+	ImGui::Begin("Saving Menu");
+	{
+		ImGui::InputText("Level Name", lvl_name, sizeof(lvl_name));
+		if(ImGui::Button("Save", ImVec2(101, 30))){
+			save();
+		}
+	}
+	ImGui::End();
+
 }
 
-Level::Level(std::vector<float> vertices, std::vector<unsigned int> indices) : default_verticecs{vertices}, default_indices{indices}{
+void Level::load(){
+}
+
+void Level::save(){
+	std::vector<std::array<float, 3>> positions;
+	for (auto& mesh : meshes) {
+		positions.push_back({mesh->get_position().x, mesh->get_position().y, mesh->get_position().z});
+	}
+
+	json j = {
+		{"name", lvl_name},
+	};
+	j["data"] = positions;
+	std::cout<<j.dump(4)<<std::endl;
+
+	std::string path = "res/" ;
+	path.append(lvl_name);
+	path.append(".json");
+	std::ofstream outFile(path);
+	if (outFile.is_open()) {
+		outFile << j.dump(4);
+		outFile.close();
+		std::cout << "JSON file written successfully." << std::endl;
+	}else {
+		std::cerr << "Error opening file for writing." << std::endl;
+	}
+
+}
+
+Level::Level(char* lvl_name, std::vector<float> vertices, std::vector<unsigned int> indices)
+:lvl_name{lvl_name}, default_verticecs{vertices}, default_indices{indices}{
 	mesh_shader = Shader("res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl");
 	highlight_shader = Shader("res/shaders/no_texture_vert.glsl", "res/shaders/fraghighlight.glsl");
 

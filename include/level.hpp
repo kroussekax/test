@@ -8,6 +8,8 @@
 
 class Level{
 private:
+	char* lvl_name;
+
 	Shader mesh_shader;
 	Shader highlight_shader;
 
@@ -25,8 +27,11 @@ public:
 		meshes.push_back(std::make_unique<Mesh>(default_verticecs, default_indices, glm::vec3(1.0f, 0.0f, .0f), "res/img/brick.jpg"));
 	}
 
+	void load();
+	void save();
+
 	void Draw();
 	void Draw_UI();
 
-	Level(std::vector<float> vertices, std::vector<unsigned int> indices); /* vertices and indices here are for the first/default mesh*/
+	Level(char* lvl_name, std::vector<float> vertices, std::vector<unsigned int> indices); /* vertices and indices here are for the first/default mesh*/
 };
