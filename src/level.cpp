@@ -12,8 +12,7 @@ void Level::Draw(){
 	mesh_shader.use();
 
 	for(int i=0;i<meshes.size();i++){
-		if(current_mesh != i)
-			meshes[i]->Draw(mesh_shader);
+		meshes[i]->Draw(mesh_shader);
 	}
 
 	highlight_mesh->Draw(highlight_shader);
@@ -47,9 +46,53 @@ Level::Level(std::vector<float> vertices, std::vector<unsigned int> indices) : d
 	mesh_shader = Shader("res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl");
 	highlight_shader = Shader("res/shaders/no_texture_vert.glsl", "res/shaders/fraghighlight.glsl");
 
-	highlight_mesh = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(2.0f, 2.0f, 2.0f), "res/img/brick.jpg"));
 	meshes.push_back(std::make_unique<Mesh>(vertices, indices, glm::vec3(.0f, .0f, .0f), "res/img/brick.jpg"));
 	current_mesh = 0;
 
+	std::vector<float> highlight_vertices = {
+		-0.55f, -0.55f, -0.55f,  0.0f, 0.0f,
+		0.55f, -0.55f, -0.55f,	  1.0f, 0.0f,
+		0.55f,  0.55f, -0.55f,   1.0f, 1.0f,
+		0.55f,  0.55f, -0.55f,   1.0f, 1.0f,
+		-0.55f,  0.55f, -0.55f,  0.0f, 1.0f,
+		-0.55f, -0.55f, -0.55f,  0.0f, 0.0f,
+
+		-0.55f, -0.55f,  0.55f,  0.0f, 0.0f,
+		0.55f, -0.55f,  0.55f,   1.0f, 0.0f,
+		0.55f,  0.55f,  0.55f,   1.0f, 1.0f,
+		0.55f,  0.55f,  0.55f,   1.0f, 1.0f,
+		-0.55f,  0.55f,  0.55f,  0.0f, 1.0f,
+		-0.55f, -0.55f,  0.55f,  0.0f, 0.0f,
+
+		-0.55f,  0.55f,  0.55f,  1.0f, 0.0f,
+		-0.55f,  0.55f, -0.55f,  1.0f, 1.0f,
+		-0.55f, -0.55f, -0.55f,  0.0f, 1.0f,
+		-0.55f, -0.55f, -0.55f,  0.0f, 1.0f,
+		-0.55f, -0.55f,  0.55f,  0.0f, 0.0f,
+		-0.55f,  0.55f,  0.55f,  1.0f, 0.0f,
+
+		0.55f,  0.55f,  0.55f,  1.0f, 0.0f,
+		0.55f,  0.55f, -0.55f,  1.0f, 1.0f,
+		0.55f, -0.55f, -0.55f,  0.0f, 1.0f,
+		0.55f, -0.55f, -0.55f,  0.0f, 1.0f,
+		0.55f, -0.55f,  0.55f,  0.0f, 0.0f,
+		0.55f,  0.55f,  0.55f,  1.0f, 0.0f,
+
+		-0.55f, -0.55f, -0.55f,  0.0f, 1.0f,
+		0.55f, -0.55f, -0.55f,   1.0f, 1.0f,
+		0.55f, -0.55f,  0.55f,   1.0f, 0.0f,
+		0.55f, -0.55f,  0.55f,   1.0f, 0.0f,
+		-0.55f, -0.55f,  0.55f,  0.0f, 0.0f,
+		-0.55f, -0.55f, -0.55f,  0.0f, 1.0f,
+
+		-0.55f,  0.55f, -0.55f,  0.0f, 1.0f,
+		0.55f,  0.55f, -0.55f,   1.0f, 1.0f,
+		0.55f,  0.55f,  0.55f,   1.0f, 0.0f,
+		0.55f,  0.55f,  0.55f,   1.0f, 0.0f,
+		-0.55f,  0.55f,  0.55f,  0.0f, 0.0f,
+		-0.55f,  0.55f, -0.55f,  0.0f, 1.0f
+	};
+
+	highlight_mesh = std::make_unique<Mesh>(Mesh(highlight_vertices, indices, glm::vec3(2.0f, 2.0f, 2.0f), "res/img/brick.jpg"));
 	highlight_mesh->get_position() = meshes[0]->get_position();
 }
