@@ -44,6 +44,7 @@ void Level::Draw_UI(){
 
 		if(ImGui::Button("New Mesh", ImVec2(101, 30))){
 			add_mesh(meshes[current_mesh]->get_position());
+			current_mesh = meshes.size()-1;
 		}
 	}
 	ImGui::End();
