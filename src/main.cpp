@@ -112,7 +112,8 @@ int main(){
 
 	projection = glm::perspective(glm::radians(45.0f), 1000.0f / 1000.0f, 0.1f, 100.0f);
 
-	level = std::make_unique<Level>(vertices, indices);
+	char tmp[12] = "lvl";
+	level = std::make_unique<Level>(tmp, vertices, indices);
 
 	glViewport(0, 0, 1280, 720);
 
