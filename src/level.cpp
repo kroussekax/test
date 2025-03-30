@@ -43,7 +43,7 @@ void Level::Draw_UI(){
 		ImGui::SliderFloat(std::format("Mesh {0} Z", current_mesh).c_str(), &meshes[current_mesh]->get_position().z, -10.0f, 10.0f);
 
 		if(ImGui::Button("New Mesh", ImVec2(101, 30))){
-			add_mesh();
+			add_mesh(meshes[current_mesh]->get_position());
 		}
 	}
 	ImGui::End();
