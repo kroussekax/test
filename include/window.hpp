@@ -19,6 +19,10 @@ public:
 		return glfwWindowShouldClose(window);
 	}
 
+	bool check_key(int key){
+		return glfwGetKey(window, key);
+	}
+
 	void swap_buffers() const{
 		glfwSwapBuffers(window);
 	}
