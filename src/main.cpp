@@ -1,8 +1,7 @@
-#include <chrono>
 #include <cstdio>
+#include <memory>
 #include <format>
 #include <iostream>
-#include <memory>
 #include <ostream>
 #include <vector>
 
@@ -19,8 +18,10 @@
 
 #include "globals.hpp"
 
+#include "level.hpp"
 #include "mesh.hpp"
 #include "window.hpp"
+#include "input_manager.hpp"
 
 #define DEBUG_MODE
 
@@ -36,6 +37,8 @@ float lastX = 1000 / 2.0f;
 float lastY = 1000 / 2.0f;
 bool firstMouse = true;
 
+std::unique_ptr<Level> level;
+
 int main(){
 	glfwInit();
 
@@ -48,6 +51,8 @@ int main(){
 	gladLoadGL();
 
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	window.set_frame_buffer_size_callback(framebuffer_size_callback);
 	window.set_mouse_callback(mouse_callback);
@@ -97,52 +102,6 @@ int main(){
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 	};
 
-	/*
-	std::vector<float> vertices = {
-		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, 0.0f,  0.0f, -1.0f,
-		0.5f, -0.5f, -0.5f,		1.0f, 0.0f, 0.0f,  0.0f, -1.0f,
-		0.5f,  0.5f, -0.5f,		1.0f, 1.0f, 0.0f,  0.0f, -1.0f,
-		0.5f,  0.5f, -0.5f,		1.0f, 1.0f, 0.0f,  0.0f, -1.0f,
-		-0.5f,  0.5f, -0.5f,	0.0f, 1.0f, 0.0f,  0.0f, -1.0f,
-		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, 0.0f,  0.0f, -1.0f,
-
-		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 0.0f,  0.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,		1.0f, 0.0f, 0.0f,  0.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,		1.0f, 1.0f, 0.0f,  0.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,		1.0f, 1.0f, 0.0f,  0.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 0.0f,  0.0f, 1.0f,
-
-		-0.5f,  0.5f,  0.5f,	1.0f, 0.0f,-1.0f,  0.0f,  0.0f,
-		-0.5f,  0.5f, -0.5f,	1.0f, 1.0f,-1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f,	0.0f, 1.0f,-1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f,	0.0f, 1.0f,-1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f,-1.0f,  0.0f,  0.0f,
-		-0.5f,  0.5f,  0.5f,	1.0f, 0.0f,-1.0f,  0.0f,  0.0f,
-
-		0.5f,  0.5f,  0.5f,		1.0f, 0.0f, 1.0f,  0.0f,  0.0f,
-		0.5f,  0.5f, -0.5f,		1.0f, 1.0f, 1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,		0.0f, 1.0f, 1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,		0.0f, 1.0f, 1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,		0.0f, 0.0f, 1.0f,  0.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,		1.0f, 0.0f, 1.0f,  0.0f,  0.0f,
-
-		-0.5f, -0.5f, -0.5f,	0.0f, 1.0f, 0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,		1.0f, 1.0f, 0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,		1.0f, 0.0f, 0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,		1.0f, 0.0f, 0.0f, -1.0f,  0.0f,
-		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 0.0f, -1.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f,	0.0f, 1.0f, 0.0f, -1.0f,  0.0f,
-
-		-0.5f,  0.5f, -0.5f,	0.0f, 1.0f, 0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f, -0.5f,		1.0f, 1.0f, 0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,		1.0f, 0.0f, 0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,		1.0f, 0.0f, 0.0f,  1.0f,  0.0f,
-		-0.5f,  0.5f,  0.5f,	0.0f, 0.0f, 0.0f,  1.0f,  0.0f,
-		-0.5f,  0.5f, -0.5f,	0.0f, 1.0f, 0.0f,  1.0f,  0.0f
-	};
-	*/
-
 	std::vector<unsigned int> indices = {
 		0, 1, 3,   // first triangle
 		1, 2, 3    // second triangle
@@ -153,23 +112,10 @@ int main(){
 
 	projection = glm::perspective(glm::radians(45.0f), 1000.0f / 1000.0f, 0.1f, 100.0f);
 
+	char tmp[12] = "lvl";
+	level = std::make_unique<Level>(tmp, vertices, indices);
+
 	glViewport(0, 0, 1280, 720);
-
-	glm::vec4 sun_color(0.949, 1.000, 0.157, .0f);
-
-	Shader mesh_shader("res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl");
-	glUniform4f(glGetUniformLocation(mesh_shader.get_id(), "lightColor"), sun_color.r, sun_color.g, sun_color.b, sun_color.w);
-
-	Shader sun_shader("res/shaders/vert2.glsl", "res/shaders/frag2.glsl");
-	glUniform4fv(glGetUniformLocation(sun_shader.get_id(), "lightColor"), 1, &sun_color[0]);
-
-	std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(.0f, .0f, .0f), "res/img/brick.jpg"));
-	std::unique_ptr<Mesh> mesh2 = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(1.0f, .0f, .0f), "res/img/brick.jpg"));
-	std::unique_ptr<Mesh> mesh3 = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(1.0f, .0f, -1.0f), "res/img/brick.jpg"));
-	std::unique_ptr<Mesh> mesh4 = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(.0f, .0f, -1.0f), "res/img/brick.jpg"));
-
-	std::unique_ptr<Mesh> sun = std::make_unique<Mesh>(Mesh(vertices, indices, glm::vec3(2.0f, 2.0f, 2.0f), "res/img/brick.jpg"));
-	glUniform3fv(glGetUniformLocation(sun_shader.get_id(), "lightPos"), 1, &sun->get_position()[0]);
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -190,29 +136,21 @@ int main(){
 
 		window.input(getDeltaTime(last_time), camera);
 
-		mesh_shader.use();
-		glUniform3f(glGetUniformLocation(mesh_shader.get_id(), "objectColor"), 1.0f, 0.5f, 0.31f);
-		glUniform3f(glGetUniformLocation(mesh_shader.get_id(), "lightColor"), 1.0f, 1.0f, 1.0f);
-		glUniform3fv(glGetUniformLocation(sun_shader.get_id(), "lightPos"), 1, &sun->get_position()[0]);
-
-		mesh->Draw(mesh_shader);
-		mesh2->Draw(mesh_shader);
-		mesh3->Draw(mesh_shader);
-		mesh4->Draw(mesh_shader);
-
-		sun->Draw(sun_shader);
+		level->Draw();
 
 		projection = glm::perspective(glm::radians(camera.Zoom), (float)1000 / (float)1000, 0.1f, 100.0f);
 		view = camera.GetViewMatrix();
 
 		ImGui::Begin("J3C Control Window");
 		{
-			ImGui::SliderFloat("Mesh1 Pos", &mesh->get_position().x, .0f, 5.0f);
+			//ImGui::SliderFloat("Mesh1 Pos", &mesh->get_position().x, .0f, 5.0f);
 			ImGui::SliderFloat("Camera Speed", &MovementSpeed, .0f, 5.0f);
 			float fps = 1.0f / getDeltaTime(last_time);
 			ImGui::Text("FPS: %.2f", fps);
 		}
 		ImGui::End();
+
+		level->Draw_UI();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -265,17 +203,17 @@ static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 }
 
 void process_input(float dt, Camera& camera, Window* window){
-	if(window->check_key(GLFW_KEY_W) == GLFW_PRESS)
+	if(InputManager::IsKeyDown(GLFW_KEY_W) == GLFW_PRESS)
 		camera.ProcessKeyboard(FORWARD, dt);
-	if(window->check_key(GLFW_KEY_S) == GLFW_PRESS)
+	if(InputManager::IsKeyDown(GLFW_KEY_S) == GLFW_PRESS)
 		camera.ProcessKeyboard(BACKWARD, dt);
-	if(window->check_key(GLFW_KEY_A) == GLFW_PRESS)
+	if(InputManager::IsKeyDown(GLFW_KEY_A) == GLFW_PRESS)
 		camera.ProcessKeyboard(LEFT, dt);
-	if(window->check_key(GLFW_KEY_D) == GLFW_PRESS)
+	if(InputManager::IsKeyDown(GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, dt);
 
-	if(window->check_key(GLFW_KEY_SPACE) == GLFW_PRESS)
+	if(InputManager::IsKeyDown(GLFW_KEY_SPACE) == GLFW_PRESS)
 		camera.ProcessKeyboard(ABOVE, dt);
-	if(window->check_key(GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+	if(InputManager::IsKeyDown(GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		camera.ProcessKeyboard(DOWN, dt);
 }
