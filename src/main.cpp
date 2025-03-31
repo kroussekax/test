@@ -114,6 +114,7 @@ int main(){
 
 	char tmp[12] = "lvl";
 	level = std::make_unique<Level>(tmp, vertices, indices);
+	level->load();
 
 	glViewport(0, 0, 1280, 720);
 
