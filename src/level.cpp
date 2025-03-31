@@ -38,9 +38,22 @@ void Level::Draw_UI(){
 	{
 		ImGui::Text("Total Mesh: %i", (int)meshes.size());
 		ImGui::Text("Current Mesh: %i", current_mesh+1);
-		ImGui::SliderFloat(std::format("Mesh {0} X", current_mesh).c_str(), &meshes[current_mesh]->get_position().x, -10.0f, 10.0f);
-		ImGui::SliderFloat(std::format("Mesh {0} Y", current_mesh).c_str(), &meshes[current_mesh]->get_position().y, -10.0f, 10.0f);
-		ImGui::SliderFloat(std::format("Mesh {0} Z", current_mesh).c_str(), &meshes[current_mesh]->get_position().z, -10.0f, 10.0f);
+
+		ImGui::SetNextItemWidth(100);
+		ImGui::InputFloat("X", &meshes[current_mesh]->get_position().x);
+		ImGui::SameLine();
+		ImGui::SliderFloat(std::format("##X{}", current_mesh).c_str(), &meshes[current_mesh]->get_position().x, -10.0f, 10.0f);
+
+		ImGui::SetNextItemWidth(100);
+		ImGui::InputFloat("Y", &meshes[current_mesh]->get_position().y);
+		ImGui::SameLine();
+		ImGui::SliderFloat(std::format("##Y{}", current_mesh).c_str(), &meshes[current_mesh]->get_position().y, -10.0f, 10.0f);
+
+		ImGui::SetNextItemWidth(100);
+		ImGui::InputFloat("Z", &meshes[current_mesh]->get_position().z); // Fixed `.z`
+		ImGui::SameLine();
+		ImGui::SliderFloat(std::format("##Z{}", current_mesh).c_str(), &meshes[current_mesh]->get_position().z, -10.0f, 10.0f);
+
 
 		if(ImGui::Button("New Mesh", ImVec2(101, 30))){
 			add_mesh(meshes[current_mesh]->get_position());
@@ -52,11 +65,11 @@ void Level::Draw_UI(){
 	ImGui::Begin("Saving Menu");
 	{
 		ImGui::InputText("Level Name", lvl_name, sizeof(lvl_name));
-		if(ImGui::Button("Save", ImVec2(101, 30))){
+		if(ImGui::Button("Save", ImVec2(100, 30))){
 			save();
 		}
 
-		if(ImGui::Button("Load", ImVec2(101, 30))){
+		if(ImGui::Button("Load", ImVec2(100, 30))){
 			load();
 		}
 	}
