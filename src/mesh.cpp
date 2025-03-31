@@ -4,7 +4,10 @@
 #include <GL/glext.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <iostream>
+#include <ostream>
 
+#include "GLFW/glfw3.h"
 #include "globals.hpp"
 
 void Mesh::Draw(Shader &shader){
@@ -18,6 +21,9 @@ void Mesh::Draw(Shader &shader){
 	glUniformMatrix4fv(glGetUniformLocation(shader.get_id(), "model"), 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(glGetUniformLocation(shader.get_id(), "view"), 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(glGetUniformLocation(shader.get_id(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	float millis = glfwGetTime();
+	//std::cout << millis <<std::endl;
+	glUniform1f(glGetUniformLocation(shader.get_id(), "millis"), millis);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

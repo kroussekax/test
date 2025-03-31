@@ -1,4 +1,4 @@
 cd build
-make
+#make
 ./main1
 cd ..
