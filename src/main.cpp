@@ -1,6 +1,5 @@
 #include <cstdio>
 #include <memory>
-#include <format>
 #include <iostream>
 #include <ostream>
 #include <vector>
@@ -19,7 +18,6 @@
 #include "globals.hpp"
 
 #include "level.hpp"
-#include "mesh.hpp"
 #include "window.hpp"
 #include "input_manager.hpp"
 

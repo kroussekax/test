@@ -137,7 +137,9 @@ Level::Level(char* lvl_name, std::vector<float> vertices, std::vector<unsigned i
 	mesh_shader = Shader("res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl");
 	highlight_shader = Shader("res/shaders/no_texture_vert.glsl", "res/shaders/fraghighlight.glsl");
 
-	meshes.push_back(std::make_unique<Mesh>(vertices, indices, glm::vec3(.0f, .0f, .0f), "res/img/brick.jpg"));
+	for(int i=0;i<100;i++){
+		meshes.push_back(std::make_unique<Mesh>(vertices, indices, glm::vec3(i, .0f, .0f), "res/img/brick.jpg"));
+	}
 	current_mesh = 0;
 
 	std::vector<float> highlight_vertices = {
