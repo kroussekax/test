@@ -15,4 +15,4 @@ add_library(hama STATIC "${MY_SOURCES}")
 # Include directories for the library
 target_include_directories(hama PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-target_link_libraries(hama PRIVATE glfw glad imgui)
+target_link_libraries(hama PRIVATE glfw glad imgui j3e)

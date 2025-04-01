@@ -105,10 +105,14 @@ int main(){
 		1, 2, 3    // second triangle
 	};
 
-	j3e::view = glm::mat4(1.0f);
-	j3e::view = glm::translate(j3e::view, glm::vec3(0.0f, 0.0f, -3.0f));
 
-	j3e::projection = glm::perspective(glm::radians(45.0f), 1000.0f / 1000.0f, 0.1f, 100.0f);
+	glm::mat4 view = glm::mat4(1.0f);
+	glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1000.0f / 1000.0f, 0.1f, 100.0f);
+	float last_time = .0f;
+	bool cam_should_move = true;
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
+	global = {&view, &projection, &last_time, &camera.MovementSpeed, &cam_should_move};
 
 	char tmp[12] = "lvl";
 	level = std::make_unique<j3e::Level>(tmp, vertices, indices);
@@ -132,18 +136,18 @@ int main(){
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		window.input(j3e::getDeltaTime(j3e::last_time), camera);
+		window.input(j3e::getDeltaTime(*global.last_time), camera);
 
 		level->Draw();
 
-		j3e::projection = glm::perspective(glm::radians(camera.Zoom), (float)1000 / (float)1000, 0.1f, 100.0f);
-		j3e::view = camera.GetViewMatrix();
+		*global.projection = glm::perspective(glm::radians(camera.Zoom), (float)1000 / (float)1000, 0.1f, 100.0f);
+		*global.view = camera.GetViewMatrix();
 
 		ImGui::Begin("J3C Control Window");
 		{
 			//ImGui::SliderFloat("Mesh1 Pos", &mesh->get_position().x, .0f, 5.0f);
-			ImGui::SliderFloat("j3e::Camera Speed", &j3e::MovementSpeed, .0f, 5.0f);
-			float fps = 1.0f / j3e::getDeltaTime(j3e::last_time);
+			ImGui::SliderFloat("j3e::Camera Speed", global.MovementSpeed, .0f, 5.0f);
+			float fps = 1.0f / j3e::getDeltaTime(*global.last_time);
 			ImGui::Text("FPS: %.2f", fps);
 		}
 		ImGui::End();

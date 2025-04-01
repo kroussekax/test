@@ -1,4 +1,6 @@
 #include "hama.hpp"
 
-hama::LevelEditor::LevelEditor(){
+namespace hama{
+LevelEditor::LevelEditor(){
+};
 }

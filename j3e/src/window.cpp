@@ -16,7 +16,7 @@ void Window::input(float dt, Camera& camera){
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		else
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		cam_should_move = !cam_should_move;
+		*global.cam_should_move = !*global.cam_should_move;
 	}
 
 	custom_input_impl(dt, camera, this);

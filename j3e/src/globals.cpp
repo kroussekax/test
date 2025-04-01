@@ -1,7 +1,7 @@
 #include "globals.hpp"
 
 namespace j3e{
-float getDeltaTime(float& last_time){
+float getDeltaTime(float &last_time){
 	// Get current time
 	float currentTime = static_cast<float>(glfwGetTime());
 

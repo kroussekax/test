@@ -17,8 +17,8 @@ void Mesh::Draw(Shader &shader){
 	model = glm::translate(model, pos);
 
 	glUniformMatrix4fv(glGetUniformLocation(shader.get_id(), "model"), 1, GL_FALSE, glm::value_ptr(model));
-	glUniformMatrix4fv(glGetUniformLocation(shader.get_id(), "view"), 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(glGetUniformLocation(shader.get_id(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(glGetUniformLocation(shader.get_id(), "view"), 1, GL_FALSE, glm::value_ptr(*global.view));
+	glUniformMatrix4fv(glGetUniformLocation(shader.get_id(), "projection"), 1, GL_FALSE, glm::value_ptr(*global.projection));
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

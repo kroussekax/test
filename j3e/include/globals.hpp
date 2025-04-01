@@ -10,13 +10,15 @@
 #include <glm/glm.hpp>
 
 namespace j3e{
-inline glm::mat4 view;
-inline glm::mat4 projection;
-inline float last_time = 0.0f;
-inline float MovementSpeed;
-inline bool cam_should_move = true;
+struct Globals{
+	glm::mat4* view;
+	glm::mat4* projection;
+	float* last_time;
+	float* MovementSpeed;
+	bool* cam_should_move;
+};
 
-float getDeltaTime(float& last_time);
-
+float getDeltaTime(float &last_time);
 void linkAttrib(unsigned int& vbo, GLuint layout, GLuint numComponents, GLenum type, GLsizeiptr stride, void* offset);
 }
+inline j3e::Globals global;
