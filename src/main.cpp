@@ -1,5 +1,4 @@
 #include <cstdio>
-#include <memory>
 #include <iostream>
 #include <ostream>
 #include <vector>
@@ -15,9 +14,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "hama.hpp"
+
 #include "globals.hpp"
 
-#include "level.hpp"
 #include "window.hpp"
 #include "input_manager.hpp"
 
@@ -35,9 +35,8 @@ float lastX = 1000 / 2.0f;
 float lastY = 1000 / 2.0f;
 bool firstMouse = true;
 
-std::unique_ptr<Level> level;
-
 int main(){
+	hama::say_hi();
 	glfwInit();
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -110,8 +109,6 @@ int main(){
 
 	projection = glm::perspective(glm::radians(45.0f), 1000.0f / 1000.0f, 0.1f, 100.0f);
 
-	char tmp[12] = "lvl";
-	level = std::make_unique<Level>(tmp, vertices, indices);
 
 	glViewport(0, 0, 1280, 720);
 
@@ -134,8 +131,6 @@ int main(){
 
 		window.input(getDeltaTime(last_time), camera);
 
-		level->Draw();
-
 		projection = glm::perspective(glm::radians(camera.Zoom), (float)1000 / (float)1000, 0.1f, 100.0f);
 		view = camera.GetViewMatrix();
 
@@ -147,8 +142,6 @@ int main(){
 			ImGui::Text("FPS: %.2f", fps);
 		}
 		ImGui::End();
-
-		level->Draw_UI();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

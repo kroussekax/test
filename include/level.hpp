@@ -28,7 +28,7 @@ public:
 	}
 
 	void add_mesh(glm::vec3 pos){
-		meshes.push_back(std::make_unique<Mesh>(default_verticecs, default_indices, pos, "res/img/brick.jpg"));
+		meshes.push_back(std::make_unique<Mesh>(default_verticecs, default_indices, glm::vec3(1.0f, 0.0f, .0f), "res/img/brick.jpg"));
 	}
 	void add_mesh(){
 		meshes.push_back(std::make_unique<Mesh>(default_verticecs, default_indices, glm::vec3(1.0f, 0.0f, .0f), "res/img/brick.jpg"));

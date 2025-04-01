@@ -1,5 +1,7 @@
 #include "texture.hpp"
 
+#include <iostream>
+#include <ostream>
 #include <stb_image.h>
 
 void Texture::Bind(){
@@ -29,7 +31,8 @@ Texture::Texture(GLenum texture_type, const char* img_path){
 	stbi_set_flip_vertically_on_load(true);
 	unsigned char* bytes = stbi_load(img_path, &width, &height, &num_col, 0);
 
-	glTexImage2D(texture_type, 0, GL_RGBA, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, bytes);
+	int type = GL_RGB;
+	glTexImage2D(texture_type, 0, GL_RGBA, width, height, 0, type, GL_UNSIGNED_BYTE, bytes);
 	glGenerateMipmap(texture_type);
 
 	stbi_image_free(bytes);

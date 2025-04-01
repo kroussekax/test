@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhama.a CMakeFiles/hama.dir/src/hama.cpp.o
+/usr/bin/ranlib libhama.a

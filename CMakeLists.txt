@@ -8,6 +8,8 @@ add_subdirectory("thirdparty/glad")
 add_subdirectory("thirdparty/glm")
 add_subdirectory("thirdparty/imgui")
 
+add_subdirectory("hama")
+
 #project
 project(main1)
 
@@ -23,4 +25,4 @@ add_executable(main1 "${MY_SOURCES}")
 
 target_include_directories(main1 PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
-target_link_libraries(main1 PRIVATE glfw glad imgui)
+target_link_libraries(main1 PRIVATE glfw glad imgui hama)

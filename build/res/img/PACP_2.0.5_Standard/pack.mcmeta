@@ -1,0 +1,15 @@
+{
+    "pack": {
+        "pack_format": 46,
+		"supported_formats": [15, 90],
+        "description": "Continuing the original look of Minecraft. [v2.0.5 | mzov_jn]"
+    },
+	  "overlays": {
+        "entries": [
+            {
+                "formats": [20, 90],
+                "directory": "format_20"
+            }
+        ]
+    }
+}
