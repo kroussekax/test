@@ -1,7 +1,0 @@
-Programmer Art Continuation Project - Base Pack r2.0.5
-
-- Replaced all copper block related textures.
-- Fixed the broken bed models. (Essentially swapped their rendering with that of normal items.)
-- Tweaked a few logs and stripped logs to no longer have inconsistent coloring.
-- Fixed missing potted textures.
-- Fixed missing hanging roots. 
