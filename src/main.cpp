@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <memory>
 #include <iostream>
 #include <ostream>
 #include <vector>
@@ -14,10 +15,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "hama.hpp"
-
 #include "globals.hpp"
 
+#include "level.hpp"
 #include "window.hpp"
 #include "input_manager.hpp"
 
@@ -28,22 +28,23 @@ static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
-void process_input(float dt, Camera& camera, Window* window);
+void process_input(float dt, j3e::Camera& camera, j3e::Window* window);
 
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+j3e::Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = 1000 / 2.0f;
 float lastY = 1000 / 2.0f;
 bool firstMouse = true;
 
+std::unique_ptr<j3e::Level> level;
+
 int main(){
-	hama::say_hi();
 	glfwInit();
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	Window window("j3c engine", 1600, 1000);
+	j3e::Window window("j3c engine", 1600, 1000);
 
 	gladLoadGL();
 
@@ -104,11 +105,13 @@ int main(){
 		1, 2, 3    // second triangle
 	};
 
-	view = glm::mat4(1.0f);
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+	j3e::view = glm::mat4(1.0f);
+	j3e::view = glm::translate(j3e::view, glm::vec3(0.0f, 0.0f, -3.0f));
 
-	projection = glm::perspective(glm::radians(45.0f), 1000.0f / 1000.0f, 0.1f, 100.0f);
+	j3e::projection = glm::perspective(glm::radians(45.0f), 1000.0f / 1000.0f, 0.1f, 100.0f);
 
+	char tmp[12] = "lvl";
+	level = std::make_unique<j3e::Level>(tmp, vertices, indices);
 
 	glViewport(0, 0, 1280, 720);
 
@@ -129,19 +132,23 @@ int main(){
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		window.input(getDeltaTime(last_time), camera);
+		window.input(j3e::getDeltaTime(j3e::last_time), camera);
 
-		projection = glm::perspective(glm::radians(camera.Zoom), (float)1000 / (float)1000, 0.1f, 100.0f);
-		view = camera.GetViewMatrix();
+		level->Draw();
+
+		j3e::projection = glm::perspective(glm::radians(camera.Zoom), (float)1000 / (float)1000, 0.1f, 100.0f);
+		j3e::view = camera.GetViewMatrix();
 
 		ImGui::Begin("J3C Control Window");
 		{
 			//ImGui::SliderFloat("Mesh1 Pos", &mesh->get_position().x, .0f, 5.0f);
-			ImGui::SliderFloat("Camera Speed", &MovementSpeed, .0f, 5.0f);
-			float fps = 1.0f / getDeltaTime(last_time);
+			ImGui::SliderFloat("j3e::Camera Speed", &j3e::MovementSpeed, .0f, 5.0f);
+			float fps = 1.0f / j3e::getDeltaTime(j3e::last_time);
 			ImGui::Text("FPS: %.2f", fps);
 		}
 		ImGui::End();
+
+		level->Draw_UI();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -193,18 +200,18 @@ static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 	camera.ProcessMouseScroll(static_cast<float>(yoffset));
 }
 
-void process_input(float dt, Camera& camera, Window* window){
-	if(InputManager::IsKeyDown(GLFW_KEY_W) == GLFW_PRESS)
-		camera.ProcessKeyboard(FORWARD, dt);
-	if(InputManager::IsKeyDown(GLFW_KEY_S) == GLFW_PRESS)
-		camera.ProcessKeyboard(BACKWARD, dt);
-	if(InputManager::IsKeyDown(GLFW_KEY_A) == GLFW_PRESS)
-		camera.ProcessKeyboard(LEFT, dt);
-	if(InputManager::IsKeyDown(GLFW_KEY_D) == GLFW_PRESS)
-		camera.ProcessKeyboard(RIGHT, dt);
+void process_input(float dt, j3e::Camera& camera, j3e::Window* window){
+	if(j3e::InputManager::IsKeyDown(GLFW_KEY_W) == GLFW_PRESS)
+		camera.ProcessKeyboard(j3e::Camera_Movement::FORWARD, dt);
+	if(j3e::InputManager::IsKeyDown(GLFW_KEY_S) == GLFW_PRESS)
+		camera.ProcessKeyboard(j3e::Camera_Movement::BACKWARD, dt);
+	if(j3e::InputManager::IsKeyDown(GLFW_KEY_A) == GLFW_PRESS)
+		camera.ProcessKeyboard(j3e::Camera_Movement::LEFT, dt);
+	if(j3e::InputManager::IsKeyDown(GLFW_KEY_D) == GLFW_PRESS)
+		camera.ProcessKeyboard(j3e::Camera_Movement::RIGHT, dt);
 
-	if(InputManager::IsKeyDown(GLFW_KEY_SPACE) == GLFW_PRESS)
-		camera.ProcessKeyboard(ABOVE, dt);
-	if(InputManager::IsKeyDown(GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-		camera.ProcessKeyboard(DOWN, dt);
+	if(j3e::InputManager::IsKeyDown(GLFW_KEY_SPACE) == GLFW_PRESS)
+		camera.ProcessKeyboard(j3e::Camera_Movement::ABOVE, dt);
+	if(j3e::InputManager::IsKeyDown(GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+		camera.ProcessKeyboard(j3e::Camera_Movement::DOWN, dt);
 }

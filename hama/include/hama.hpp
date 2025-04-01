@@ -1,5 +1,9 @@
 #pragma once
 
 namespace hama{
-void say_hi();
+class LevelEditor{
+private:
+public:
+	LevelEditor();
+};
 };
