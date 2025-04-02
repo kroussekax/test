@@ -4,6 +4,7 @@
 #include <fstream>
 #include <format>
 #include <memory>
+#include <ostream>
 #include <string>
 #include <vector>
 
@@ -17,6 +18,62 @@ using json=nlohmann::json;
 #include "input_manager.hpp"
 
 namespace j3e{
+void Level::change_bottom_val(float bottom_val){
+	std::vector<float> vertices = {
+		// !back
+		-0.5f, bottom_val, -0.5f,  0.0f, 0.0f,
+		0.5f, bottom_val, -0.5f,	  1.0f, 0.0f,
+		0.5f,  0.5f, -0.5f,   1.0f, 1.0f,
+		0.5f,  0.5f, -0.5f,   1.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, bottom_val, -0.5f,  0.0f, 0.0f,
+
+		// !front
+		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
+		0.5f, bottom_val,  0.5f,   1.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,   1.0f, 1.0f,
+		0.5f,  0.5f,  0.5f,   1.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
+
+		// !right
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
+		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
+		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		// !left
+		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
+		0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
+		0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		// !bottom
+		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
+		0.5f, bottom_val, -0.5f,   1.0f, 1.0f,
+		0.5f, bottom_val,  0.5f,   1.0f, 0.0f,
+		0.5f, bottom_val,  0.5f,   1.0f, 0.0f,
+		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
+		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
+
+		// !up
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		0.5f,  0.5f, -0.5f,   1.0f, 1.0f,
+		0.5f,  0.5f,  0.5f,   1.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,   1.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+	};
+
+	glBindBuffer(GL_ARRAY_BUFFER, meshes[current_mesh]->VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
 void Level::Draw(){
 	mesh_shader.use();
 
@@ -55,6 +112,14 @@ void Level::Draw_UI(){
 		ImGui::SameLine();
 		ImGui::SliderFloat(std::format("##Z{}", current_mesh).c_str(), &meshes[current_mesh]->get_position().z, -10.0f, 10.0f);
 
+		ImGui::SetNextItemWidth(100);
+		if(ImGui::InputFloat("Bottom Pos", &meshes[current_mesh]->bottom_size)){
+			change_bottom_val(meshes[current_mesh]->bottom_size);
+		}
+		ImGui::SameLine();
+		if(ImGui::SliderFloat(std::format("##Bottom Size{}", current_mesh).c_str(), &meshes[current_mesh]->bottom_size, -10.0f, 10.0f)){
+			change_bottom_val(meshes[current_mesh]->bottom_size);
+		}
 
 		if(ImGui::Button("New Mesh", ImVec2(101, 30))){
 			add_mesh();

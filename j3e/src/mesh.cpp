@@ -22,26 +22,6 @@ void Mesh::Draw(Shader &shader){
 	glUniformMatrix4fv(glGetUniformLocation(shader.get_id(), "view"), 1, GL_FALSE, glm::value_ptr(*global.view));
 	glUniformMatrix4fv(glGetUniformLocation(shader.get_id(), "projection"), 1, GL_FALSE, glm::value_ptr(*global.projection));
 	glDrawArrays(GL_TRIANGLES, 0, 36);
-	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-	ImGui::Begin("mesh controll");
-	{
-		if(ImGui::SliderFloat("##Bottom Height Val", &bottom_size, -1.0f, 0.0f)){
-			float* ptr = (float*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-			if (ptr)
-			{
-				ptr[1] = bottom_size;
-				ptr[6] = bottom_size;
-				ptr[6] = bottom_size;
-				ptr[26] = bottom_size;
-
-				glUnmapBuffer(GL_ARRAY_BUFFER); // Unmap the buffer after modification
-			}
-
-		}
-
-	}
-	ImGui::End();
 }
 
 Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos, const char* texture_path){
@@ -68,6 +48,12 @@ Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, glm::
 	model = glm::translate(model, pos);
 
 	texture = Texture(GL_TEXTURE_2D, texture_path);
+
+	bottom_size = .0f;
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 Mesh::Mesh(){

@@ -22,6 +22,8 @@ private:
 	std::unique_ptr<Mesh> highlight_mesh; /* optimize this shit yo */
 	std::vector<std::unique_ptr<Mesh>> meshes; /* prolly gonna be changed after adding assimp support to load models */
 	int current_mesh;
+
+	void change_bottom_val(float bottom_val);
 public:
 	// glm::vec3 pos, std::vector<float> vertices, std::vector<unsigned int> indices, const char* img_path
 	void add_mesh(glm::vec3 pos, std::vector<float> vertices, std::vector<unsigned int> indices, const char* img_path){

@@ -13,19 +13,16 @@
 namespace j3e{
 class Mesh {
 private:
-	unsigned int VBO, VAO, EBO;
 	Texture texture;
 
 	unsigned int model_loc;
 	unsigned int view_loc;
 	unsigned int projection_loc;
 	glm::vec3 pos;
-
+public:
+	unsigned int VBO, VAO, EBO;
 	float bottom_size;
 
-	//void linkAttrib(GLuint layout, GLuint numComponents, GLenum type, GLsizeiptr stride, void* offset);
-
-public:
 	glm::vec3& get_position(){
 		return pos;
 	}
