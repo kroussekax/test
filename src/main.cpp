@@ -56,42 +56,50 @@ int main(){
 	window.set_mouse_callback(mouse_callback);
 	window.set_scroll_callback(scroll_callback);
 
+	float bottom_val = -0.3f;
+
 	std::vector<float> vertices = {
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,	  1.0f, 0.0f,
+		// !back
+		-0.5f, bottom_val, -0.5f,  0.0f, 0.0f,
+		0.5f, bottom_val, -0.5f,	  1.0f, 0.0f,
 		0.5f,  0.5f, -0.5f,   1.0f, 1.0f,
 		0.5f,  0.5f, -0.5f,   1.0f, 1.0f,
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+		-0.5f, bottom_val, -0.5f,  0.0f, 0.0f,
 
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,   1.0f, 0.0f,
+		// !front
+		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
+		0.5f, bottom_val,  0.5f,   1.0f, 0.0f,
 		0.5f,  0.5f,  0.5f,   1.0f, 1.0f,
 		0.5f,  0.5f,  0.5f,   1.0f, 1.0f,
 		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
 
+		// !right
 		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
+		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
+		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
 		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 
+		// !left
 		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
+		0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
+		0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
 		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,   1.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,   1.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,   1.0f, 0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		// !bottom
+		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
+		0.5f, bottom_val, -0.5f,   1.0f, 1.0f,
+		0.5f, bottom_val,  0.5f,   1.0f, 0.0f,
+		0.5f, bottom_val,  0.5f,   1.0f, 0.0f,
+		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
+		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
 
+		// !up
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
 		0.5f,  0.5f, -0.5f,   1.0f, 1.0f,
 		0.5f,  0.5f,  0.5f,   1.0f, 0.0f,
@@ -149,6 +157,11 @@ int main(){
 			ImGui::SliderFloat("j3e::Camera Speed", global.MovementSpeed, .0f, 5.0f);
 			float fps = 1.0f / j3e::getDeltaTime(*global.last_time);
 			ImGui::Text("FPS: %.2f", fps);
+
+			// camera info
+			ImGui::Text("Camera X: %.2f", camera.GetViewMatrix()[3].x);
+			ImGui::Text("Camera Y: %.2f", camera.GetViewMatrix()[3].y);
+			ImGui::Text("Camera Z: %.2f", camera.GetViewMatrix()[3].z);
 		}
 		ImGui::End();
 

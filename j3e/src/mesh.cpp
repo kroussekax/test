@@ -1,9 +1,11 @@
 #include "mesh.hpp"
 
-#include <GL/gl.h>
-#include <GL/glext.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 
 #include "globals.hpp"
 
@@ -21,6 +23,25 @@ void Mesh::Draw(Shader &shader){
 	glUniformMatrix4fv(glGetUniformLocation(shader.get_id(), "projection"), 1, GL_FALSE, glm::value_ptr(*global.projection));
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+	ImGui::Begin("mesh controll");
+	{
+		if(ImGui::SliderFloat("##Bottom Height Val", &bottom_size, -1.0f, 0.0f)){
+			float* ptr = (float*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+			if (ptr)
+			{
+				ptr[1] = bottom_size;
+				ptr[6] = bottom_size;
+				ptr[6] = bottom_size;
+				ptr[26] = bottom_size;
+
+				glUnmapBuffer(GL_ARRAY_BUFFER); // Unmap the buffer after modification
+			}
+
+		}
+
+	}
+	ImGui::End();
 }
 
 Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos, const char* texture_path){

@@ -21,6 +21,8 @@ private:
 	unsigned int projection_loc;
 	glm::vec3 pos;
 
+	float bottom_size;
+
 	//void linkAttrib(GLuint layout, GLuint numComponents, GLenum type, GLsizeiptr stride, void* offset);
 
 public:

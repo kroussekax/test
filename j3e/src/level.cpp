@@ -57,7 +57,7 @@ void Level::Draw_UI(){
 
 
 		if(ImGui::Button("New Mesh", ImVec2(101, 30))){
-			add_mesh(meshes[current_mesh]->get_position());
+			add_mesh();
 			current_mesh = meshes.size()-1;
 		}
 	}
@@ -134,7 +134,7 @@ void Level::save(){
 }
 
 Level::Level(char* lvl_name, std::vector<float> vertices, std::vector<unsigned int> indices)
-:lvl_name{lvl_name}, default_verticecs{vertices}, default_indices{indices}{
+:lvl_name{lvl_name}, default_vertices{vertices}, default_indices{indices}{
 	mesh_shader = Shader("res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl");
 	highlight_shader = Shader("res/shaders/no_texture_vert.glsl", "res/shaders/fraghighlight.glsl");
 
