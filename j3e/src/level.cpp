@@ -18,60 +18,13 @@ using json=nlohmann::json;
 #include "input_manager.hpp"
 
 namespace j3e{
-void Level::change_bottom_val(float bottom_val){
-	std::vector<float> vertices = {
-		// !back
-		-0.5f, bottom_val, -0.5f,  0.0f, 0.0f,
-		0.5f, bottom_val, -0.5f,	  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,   1.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,   1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, bottom_val, -0.5f,  0.0f, 0.0f,
+void Level::change_height(glm::vec2 height){
+	meshes[current_mesh]->height = height;
+	meshes[current_mesh]->update_height();
 
-		// !front
-		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
-		0.5f, bottom_val,  0.5f,   1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,   1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,   1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
-
-		// !right
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
-		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
-		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		// !left
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
-		0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
-		0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		// !bottom
-		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
-		0.5f, bottom_val, -0.5f,   1.0f, 1.0f,
-		0.5f, bottom_val,  0.5f,   1.0f, 0.0f,
-		0.5f, bottom_val,  0.5f,   1.0f, 0.0f,
-		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
-		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
-
-		// !up
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,   1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,   1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,   1.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-	};
-
-	glBindBuffer(GL_ARRAY_BUFFER, meshes[current_mesh]->VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	highlight_mesh->get_position() = meshes[current_mesh]->get_position()-glm::vec3(0.f, 0.2, 0.f);
+	highlight_mesh->height = meshes[current_mesh]->height+glm::vec2(0.4f);
+	highlight_mesh->update_height();
 }
 
 void Level::Draw(){
@@ -85,12 +38,11 @@ void Level::Draw(){
 }
 
 void Level::Draw_UI(){
-	if(InputManager::IsKeyPressed(GLFW_KEY_RIGHT)) current_mesh++;
-	if(InputManager::IsKeyPressed(GLFW_KEY_LEFT)) current_mesh--;
+	if(InputManager::IsKeyPressed(GLFW_KEY_RIGHT)) { current_mesh++; update_highlight = true; }
+	if(InputManager::IsKeyPressed(GLFW_KEY_LEFT)) { current_mesh--; update_highlight = true; }
 
 	if(current_mesh < 0) current_mesh = 0;
 	if(current_mesh > meshes.size()-1) current_mesh = meshes.size()-1;
-	highlight_mesh->get_position() = meshes[current_mesh]->get_position();
 
 	ImGui::Begin("Mesh Control Panel");
 	{
@@ -113,12 +65,20 @@ void Level::Draw_UI(){
 		ImGui::SliderFloat(std::format("##Z{}", current_mesh).c_str(), &meshes[current_mesh]->get_position().z, -10.0f, 10.0f);
 
 		ImGui::SetNextItemWidth(100);
-		if(ImGui::InputFloat("Bottom Pos", &meshes[current_mesh]->bottom_size)){
-			change_bottom_val(meshes[current_mesh]->bottom_size);
+		if(ImGui::InputFloat("TP Height", &meshes[current_mesh]->height.y)){
+			change_height(meshes[current_mesh]->height);
 		}
 		ImGui::SameLine();
-		if(ImGui::SliderFloat(std::format("##Bottom Size{}", current_mesh).c_str(), &meshes[current_mesh]->bottom_size, -10.0f, 10.0f)){
-			change_bottom_val(meshes[current_mesh]->bottom_size);
+		if(ImGui::SliderFloat(std::format("##TP Height{}", current_mesh).c_str(), &meshes[current_mesh]->height.y, -0.5f, 1.0f)){
+			change_height(meshes[current_mesh]->height);
+		}
+		ImGui::SetNextItemWidth(100);
+		if(ImGui::InputFloat("BT Height", &meshes[current_mesh]->height.x)){
+			change_height(meshes[current_mesh]->height);
+		}
+		ImGui::SameLine();
+		if(ImGui::SliderFloat(std::format("##BT Size{}", current_mesh).c_str(), &meshes[current_mesh]->height.x, -1.0f, 0.5f)){
+			change_height(meshes[current_mesh]->height);
 		}
 
 		if(ImGui::Button("New Mesh", ImVec2(101, 30))){
@@ -165,17 +125,18 @@ void Level::load(){
 	// Extract "data" field
 	if (j.contains("data") && j["data"].is_array()) {
 		for (const auto& arr : j["data"]) {
-			if (arr.is_array() && arr.size() == 3) {
-				add_mesh(glm::vec3(arr[0], arr[1], arr[2]));
+			if (arr.is_array() && arr.size() == 5) {
+				std::cout<<"hi"<<std::endl;
+				add_mesh(glm::vec2(arr[3], arr[4]), glm::vec3(arr[0], arr[1], arr[2]));
 			}
 		}
 	}
 }
 
 void Level::save(){
-	std::vector<std::array<float, 3>> positions;
+	std::vector<std::array<float, 5>> positions;
 	for (auto& mesh : meshes) {
-		positions.push_back({mesh->get_position().x, mesh->get_position().y, mesh->get_position().z});
+		positions.push_back({mesh->get_position().x, mesh->get_position().y, mesh->get_position().z, mesh->height.x, mesh->height.y});
 	}
 
 	json j = {
@@ -204,7 +165,7 @@ Level::Level(char* lvl_name, std::vector<float> vertices, std::vector<unsigned i
 	highlight_shader = Shader("res/shaders/no_texture_vert.glsl", "res/shaders/fraghighlight.glsl");
 
 	for(int i=0;i<1;i++){
-		meshes.push_back(std::make_unique<Mesh>(vertices, indices, glm::vec3(i, .0f, .0f), "res/img/brick.jpg"));
+		meshes.push_back(std::make_unique<Mesh>(glm::vec2(-0.5, 0.5), vertices, indices, glm::vec3(i, .0f, .0f), "res/img/brick.jpg"));
 	}
 	current_mesh = 0;
 
@@ -252,7 +213,9 @@ Level::Level(char* lvl_name, std::vector<float> vertices, std::vector<unsigned i
 		-0.52f,  0.52f, -0.52f,  0.0f, 1.0f
 	};
 
-	highlight_mesh = std::make_unique<Mesh>(Mesh(highlight_vertices, indices, glm::vec3(2.0f, 2.0f, 2.0f), "res/img/brick.jpg"));
+	highlight_mesh = std::make_unique<Mesh>(Mesh(glm::vec2(-0.52, 0.52), highlight_vertices, indices, glm::vec3(2.0f, .0f, .0f), "res/img/brick.jpg"));
 	highlight_mesh->get_position() = meshes[0]->get_position();
+
+	update_highlight = false;
 }
 }

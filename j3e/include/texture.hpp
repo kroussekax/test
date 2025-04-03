@@ -3,10 +3,9 @@
 #include <glad/glad.h>
 
 namespace j3e{
-class Texture{
-private:
+struct Texture{
 	unsigned int id;
-public:
+	const char* path;
 
 	void Bind();
 	void Unbind();

@@ -56,7 +56,7 @@ int main(){
 	window.set_mouse_callback(mouse_callback);
 	window.set_scroll_callback(scroll_callback);
 
-	float bottom_val = -0.3f;
+	float bottom_val = -0.5f;
 
 	std::vector<float> vertices = {
 		// !back

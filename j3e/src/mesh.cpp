@@ -24,7 +24,59 @@ void Mesh::Draw(Shader &shader){
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
-Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos, const char* texture_path){
+void Mesh::update_height(){
+	vertices[1] = height.x;
+	vertices[6] = height.x;
+	vertices[11] = height.y;
+	vertices[16] = height.y;
+	vertices[21] = height.y;
+	vertices[26] = height.x;
+
+	vertices[31] = height.x;
+	vertices[36] = height.x;
+	vertices[41] = height.y;
+	vertices[46] = height.y;
+	vertices[51] = height.y;
+	vertices[56] = height.x;
+
+	vertices[61] = height.y;
+	vertices[66] = height.y;
+	vertices[71] = height.x;
+	vertices[76] = height.x;
+	vertices[81] = height.x;
+	vertices[86] = height.y;
+
+	vertices[91] = height.y;
+	vertices[96] = height.y;
+	vertices[101] = height.x;
+	vertices[106] = height.x;
+	vertices[111] = height.x;
+	vertices[116] = height.y;
+
+	vertices[121] = height.x;
+	vertices[126] = height.x;
+	vertices[131] = height.x;
+	vertices[136] = height.x;
+	vertices[141] = height.x;
+	vertices[146] = height.x;
+
+	vertices[151] = height.y;
+	vertices[156] = height.y;
+	vertices[161] = height.y;
+	vertices[166] = height.y;
+	vertices[171] = height.y;
+	vertices[176] = height.y;
+
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+Mesh::Mesh(glm::vec2 height, std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos, const char* texture_path){
+	this->height = height;
+	this->vertices = vertices;
+	this->indices = indices;
 	glEnable(GL_DEPTH_TEST);
 
 	glGenVertexArrays(1, &VAO);
@@ -49,7 +101,7 @@ Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, glm::
 
 	texture = Texture(GL_TEXTURE_2D, texture_path);
 
-	bottom_size = .0f;
+	update_height();
 
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);

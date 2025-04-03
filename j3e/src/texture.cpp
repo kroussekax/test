@@ -1,7 +1,5 @@
 #include "texture.hpp"
 
-#include <iostream>
-#include <ostream>
 #include <stb_image.h>
 
 namespace j3e{
@@ -17,7 +15,7 @@ void Texture::Delete(){
 	glDeleteTextures(1, &id);
 }
 
-Texture::Texture(GLenum texture_type, const char* img_path){
+Texture::Texture(GLenum texture_type, const char* img_path):path{img_path}{
 	glGenTextures(1, &id);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(texture_type, id);
