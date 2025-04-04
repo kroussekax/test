@@ -32,14 +32,21 @@ public:
 	}
 
 	void add_mesh(glm::vec2 height, glm::vec3 pos, const char* img_path=DEFAULT_IMG_PATH){
-		meshes.push_back(std::make_unique<Mesh>(height, default_vertices, default_indices, pos, img_path));
+		auto mesh = meshes[current_mesh]->clone();
+		mesh->get_position() = pos;
+		mesh->idx = meshes.size();
+		meshes.push_back(std::move(mesh));
 	}
 
 	void add_mesh(){
-		if(meshes.size() > 0)
-			meshes.push_back(meshes[current_mesh]->clone());
+		int idx = meshes.size();
+		if(meshes.size() > 0){
+			auto mesh = meshes[current_mesh]->clone();
+			mesh->idx = meshes.size();
+			meshes.push_back(std::move(mesh));
+		}
 		else
-			meshes.push_back(std::make_unique<Mesh>(glm::vec2(-0.5f, 0.5f), default_vertices, default_indices, glm::vec3(1.0f, 0.0f, .0f), DEFAULT_IMG_PATH));
+		meshes.push_back(std::make_unique<Mesh>(glm::vec2(-0.5f, 0.5f), default_vertices, default_indices, glm::vec3(1.0f, 0.0f, .0f), DEFAULT_IMG_PATH));
 	}
 
 	void load();

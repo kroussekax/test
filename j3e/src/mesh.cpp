@@ -73,7 +73,7 @@ void Mesh::update_height(){
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-Mesh::Mesh(glm::vec2 height, std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos, const char* texture_path){
+Mesh::Mesh(glm::vec2 height, std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos, const char* texture_path, int idx):idx{idx}{
 	this->height = height;
 	this->vertices = vertices;
 	this->indices = indices;

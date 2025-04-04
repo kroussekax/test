@@ -1,5 +1,7 @@
 #include "level.hpp"
+#include "GLFW/glfw3.h"
 
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <format>
@@ -22,9 +24,7 @@ void Level::change_height(glm::vec2 height){
 	meshes[current_mesh]->height = height;
 	meshes[current_mesh]->update_height();
 
-	highlight_mesh->get_position() = meshes[current_mesh]->get_position()-glm::vec3(0.f, 0.2, 0.f);
-	highlight_mesh->height = meshes[current_mesh]->height+glm::vec2(0.4f);
-	highlight_mesh->update_height();
+	update_highlight = true;
 }
 
 void Level::Draw(){
@@ -38,6 +38,18 @@ void Level::Draw(){
 }
 
 void Level::Draw_UI(){
+	// vim motions
+	if(InputManager::IsKeyPressed(GLFW_KEY_K)){
+		float y = meshes[current_mesh]->get_position().y;
+		auto it = std::find_if(meshes.begin(), meshes.end(), [y](std::unique_ptr<Mesh>& mesh){
+			return mesh->get_position().y > y;
+		});
+		if(it != meshes.end()){
+			current_mesh = (*it)->idx;
+			update_highlight = true;
+		}
+	}
+
 	if(InputManager::IsKeyPressed(GLFW_KEY_RIGHT)) { current_mesh++; update_highlight = true; }
 	if(InputManager::IsKeyPressed(GLFW_KEY_LEFT)) { current_mesh--; update_highlight = true; }
 
@@ -100,6 +112,12 @@ void Level::Draw_UI(){
 		}
 	}
 	ImGui::End();
+
+	if(update_highlight){
+		highlight_mesh->get_position() = meshes[current_mesh]->get_position();
+		highlight_mesh->height = meshes[current_mesh]->height+glm::vec2(0.4f);
+		highlight_mesh->update_height();
+	}
 
 }
 

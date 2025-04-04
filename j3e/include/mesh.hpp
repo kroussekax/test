@@ -26,6 +26,7 @@ private:
 	std::vector<unsigned int> indices;
 public:
 	glm::vec2 height;
+	int idx;
 
 	void update_height();
 
@@ -39,7 +40,7 @@ public:
 		return std::make_unique<Mesh>(height, vertices, indices, pos, texture.path);
 	}
 
-	Mesh(glm::vec2 height, std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos, const char* texture_path);
+	Mesh(glm::vec2 height, std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos, const char* texture_path, int idx=0);
 	Mesh();
 };
 }
