@@ -86,6 +86,7 @@ void LevelEditor::save(){
 
 void LevelEditor::Draw(j3e::Shader highlight_shader){
 	highlight_mesh->Draw(highlight_shader);
+	level.Draw();
 }
 
 void LevelEditor::Draw_UI(){
@@ -237,6 +238,8 @@ LevelEditor::LevelEditor(std::vector<float> vertices, std::vector<unsigned int> 
 		-0.52f,  0.52f,  0.52f,  0.0f, 0.0f,
 		-0.52f,  0.52f, -0.52f,  0.0f, 1.0f
 	};
+
+	add_mesh();
 
 	highlight_mesh = std::make_unique<j3e::Mesh>(j3e::Mesh(glm::vec2(-0.52, 0.52), highlight_vertices, indices, glm::vec3(2.0f, .0f, .0f), "res/img/brick.jpg"));
 	highlight_mesh->get_position() = level.meshes[0]->get_position();

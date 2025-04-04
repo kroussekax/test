@@ -46,7 +46,7 @@ public:
 		add_mesh(pos, Defaults.height, Defaults.img_path, Defaults.vertices, Defaults.indices, idx);
 	}
 	void add_mesh(int idx=0){
-		add_mesh(level.meshes[current_mesh]->get_position(), Defaults.height, Defaults.img_path, Defaults.vertices, Defaults.indices, idx);
+		add_mesh(glm::vec3(.0f), Defaults.height, Defaults.img_path, Defaults.vertices, Defaults.indices, idx);
 	}
 
 	/* clone_mesh will copy the mesh thats in the index given in the argument and push it into level.mesh */

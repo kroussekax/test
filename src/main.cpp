@@ -17,6 +17,7 @@
 
 #include "globals.hpp"
 
+#include "hama.hpp"
 #include "level.hpp"
 #include "window.hpp"
 #include "input_manager.hpp"
@@ -34,8 +35,6 @@ j3e::Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = 1000 / 2.0f;
 float lastY = 1000 / 2.0f;
 bool firstMouse = true;
-
-std::unique_ptr<j3e::Level> level;
 
 int main(){
 	glfwInit();
@@ -122,8 +121,9 @@ int main(){
 
 	global = {&view, &projection, &last_time, &camera.MovementSpeed, &cam_should_move};
 
+	j3e::Shader highlight_shader = j3e::Shader("res/shaders/no_texture_vert.glsl", "res/shaders/fraghighlight.glsl");
 	char tmp[12] = "lvl";
-	level = std::make_unique<j3e::Level>(tmp, vertices, indices);
+	hama::LevelEditor *editor = new hama::LevelEditor(vertices, indices, glm::vec2(-0.5, 0.5), "res/img/brick.jpg", tmp);
 
 	glViewport(0, 0, 1280, 720);
 
@@ -146,7 +146,7 @@ int main(){
 
 		window.input(j3e::getDeltaTime(*global.last_time), camera);
 
-		level->Draw();
+		editor->Draw(highlight_shader);
 
 		*global.projection = glm::perspective(glm::radians(camera.Zoom), (float)1000 / (float)1000, 0.1f, 100.0f);
 		*global.view = camera.GetViewMatrix();
@@ -165,7 +165,7 @@ int main(){
 		}
 		ImGui::End();
 
-		level->Draw_UI();
+		editor->Draw_UI();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

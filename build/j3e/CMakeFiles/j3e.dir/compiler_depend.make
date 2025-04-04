@@ -444,10 +444,14 @@ j3e/CMakeFiles/j3e.dir/src/level.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/lev
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/asm-generic/int-ll64.h \
+  /usr/include/asm-generic/ioctl.h \
+  /usr/include/asm-generic/ioctls.h \
   /usr/include/asm-generic/posix_types.h \
   /usr/include/asm-generic/types.h \
   /usr/include/asm/bitsperlong.h \
   /usr/include/asm/errno.h \
+  /usr/include/asm/ioctl.h \
+  /usr/include/asm/ioctls.h \
   /usr/include/asm/posix_types.h \
   /usr/include/asm/posix_types_64.h \
   /usr/include/asm/types.h \
@@ -469,6 +473,8 @@ j3e/CMakeFiles/j3e.dir/src/level.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/lev
   /usr/include/bits/fp-logb.h \
   /usr/include/bits/getopt_core.h \
   /usr/include/bits/getopt_posix.h \
+  /usr/include/bits/ioctl-types.h \
+  /usr/include/bits/ioctls.h \
   /usr/include/bits/iscanonical.h \
   /usr/include/bits/libc-header-start.h \
   /usr/include/bits/libm-simd-decl-stubs.h \
@@ -777,6 +783,9 @@ j3e/CMakeFiles/j3e.dir/src/level.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/lev
   /usr/include/limits.h \
   /usr/include/linux/close_range.h \
   /usr/include/linux/errno.h \
+  /usr/include/linux/input-event-codes.h \
+  /usr/include/linux/input.h \
+  /usr/include/linux/ioctl.h \
   /usr/include/linux/limits.h \
   /usr/include/linux/posix_types.h \
   /usr/include/linux/sched/types.h \
@@ -793,9 +802,12 @@ j3e/CMakeFiles/j3e.dir/src/level.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/lev
   /usr/include/string.h \
   /usr/include/strings.h \
   /usr/include/sys/cdefs.h \
+  /usr/include/sys/ioctl.h \
   /usr/include/sys/select.h \
   /usr/include/sys/single_threaded.h \
   /usr/include/sys/syscall.h \
+  /usr/include/sys/time.h \
+  /usr/include/sys/ttydefaults.h \
   /usr/include/sys/types.h \
   /usr/include/syscall.h \
   /usr/include/time.h \
@@ -2219,7 +2231,29 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_float.hpp:
 
+/home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_double.hpp:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_geometric.inl:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_quat.inl:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_float.hpp:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_relational.inl:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_relational.hpp:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_transform.hpp:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_transform.inl:
+
+/usr/include/limits.h:
+
 /usr/include/endian.h:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_quat.hpp:
+
+/usr/include/stdint.h:
 
 /usr/include/c++/14.2.1/bits/ostream.tcc:
 
@@ -2246,6 +2280,8 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_float1.hpp:
 
 /usr/include/c++/14.2.1/backward/binders.h:
+
+/usr/include/sys/time.h:
 
 /usr/include/c++/14.2.1/debug/assertions.h:
 
@@ -2282,8 +2318,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /usr/include/c++/14.2.1/bits/predefined_ops.h:
 
 /usr/include/c++/14.2.1/bits/move.h:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/detail/func_integer.inl:
 
 /usr/include/c++/14.2.1/bits/cpp_type_traits.h:
 
@@ -2358,6 +2392,8 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /usr/include/bits/libc-header-start.h:
 
 /usr/include/c++/14.2.1/ext/aligned_buffer.h:
+
+/usr/include/linux/ioctl.h:
 
 /usr/include/bits/flt-eval-method.h:
 
@@ -2437,8 +2473,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/bits/types/struct_tm.h:
 
-/home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_relational.hpp:
-
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_mat3x2.inl:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_double2x4.hpp:
@@ -2496,6 +2530,8 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_mat2x4.inl:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/mat3x3.hpp:
+
+/usr/include/sys/ttydefaults.h:
 
 /usr/include/c++/14.2.1/bits/specfun.h:
 
@@ -2604,8 +2640,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_vec1.hpp:
 
 /usr/include/c++/14.2.1/utility:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_geometric.inl:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/vec4.hpp:
 
@@ -2717,8 +2751,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_mat3x4.hpp:
 
-/usr/include/c++/14.2.1/bits/shared_ptr_base.h:
-
 /usr/include/c++/14.2.1/vector:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/matrix.hpp:
@@ -2821,6 +2853,10 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_double4.hpp:
 
+/usr/include/c++/14.2.1/bits/shared_ptr_base.h:
+
+/usr/include/linux/input.h:
+
 /usr/include/bits/types/sigset_t.h:
 
 /usr/include/c++/14.2.1/bits/ptr_traits.h:
@@ -2915,6 +2951,8 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/tr1/special_function_util.h:
 
+/usr/include/asm/ioctl.h:
+
 /home/dave/Documents/c++/J3C/j3e/src/level.cpp:
 
 /home/dave/Documents/c++/J3C/j3e/include/level.hpp:
@@ -2943,6 +2981,8 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/asm-generic/int-ll64.h:
 
+/usr/include/asm-generic/ioctl.h:
+
 /usr/include/asm-generic/posix_types.h:
 
 /usr/include/asm/bitsperlong.h:
@@ -2950,6 +2990,8 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /usr/include/c++/14.2.1/bits/cxxabi_forced.h:
 
 /usr/include/c++/14.2.1/bits/gslice_array.h:
+
+/usr/include/asm/ioctls.h:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_float3_precision.hpp:
 
@@ -2980,6 +3022,12 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /usr/include/bits/getopt_posix.h:
 
 /usr/include/errno.h:
+
+/usr/include/bits/ioctl-types.h:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/detail/func_integer.inl:
+
+/usr/include/bits/ioctls.h:
 
 /usr/include/bits/posix_opt.h:
 
@@ -3022,10 +3070,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/func_exponential.inl:
 
 /usr/include/bits/types/error_t.h:
-
-/usr/include/limits.h:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_transform.inl:
 
 /home/dave/Documents/c++/J3C/j3e/src/window.cpp:
 
@@ -3077,8 +3121,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/bits/basic_string.h:
 
-/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_quat.inl:
-
 /usr/include/bits/byteswap.h:
 
 /usr/include/c++/14.2.1/bits/basic_string.tcc:
@@ -3116,6 +3158,8 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /usr/include/c++/14.2.1/bits/locale_facets_nonio.h:
 
 /usr/include/c++/14.2.1/bits/locale_facets_nonio.tcc:
+
+/usr/include/asm-generic/ioctls.h:
 
 /usr/include/c++/14.2.1/bits/memory_resource.h:
 
@@ -3207,6 +3251,12 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/bits/valarray_after.h:
 
+/home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_geometric.hpp:
+
+/usr/include/c++/14.2.1/bits/valarray_before.h:
+
+/usr/include/sys/ioctl.h:
+
 /usr/include/c++/14.2.1/cerrno:
 
 /usr/include/c++/14.2.1/charconv:
@@ -3216,8 +3266,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /usr/include/c++/14.2.1/cstring:
 
 /usr/include/c++/14.2.1/ctime:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_float.hpp:
 
 /home/dave/Documents/c++/J3C/j3e/include/stb_image.h:
 
@@ -3230,6 +3278,8 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /usr/include/c++/14.2.1/bits/functexcept.h:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/scalar_constants.inl:
+
+/usr/include/linux/input-event-codes.h:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_float4_precision.hpp:
 
@@ -3275,8 +3325,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/unordered_map:
 
-/home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_relational.inl:
-
 /usr/include/c++/14.2.1/valarray:
 
 /usr/include/bits/floatn-common.h:
@@ -3318,15 +3366,3 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /usr/include/c++/14.2.1/bits/unicode-data.h:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_projection.inl:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_transform.hpp:
-
-/usr/include/stdint.h:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_quat.hpp:
-
-/usr/include/c++/14.2.1/bits/valarray_before.h:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_geometric.hpp:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_double.hpp:
