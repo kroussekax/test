@@ -44,13 +44,13 @@ void Level::Draw_UI(){
 		float x = meshes[current_mesh]->get_position().x;
 		auto it = std::find_if(meshes.begin(), meshes.end(), [x, y](std::unique_ptr<Mesh>& mesh){
 			if(InputManager::IsKeyPressed(GLFW_KEY_K))
-				return mesh->get_position().y > y;
+				return mesh->get_position().y > y && mesh->get_position().x == x;
 			else if(InputManager::IsKeyPressed(GLFW_KEY_J))
-				return mesh->get_position().y < y;
+				return mesh->get_position().y < y && mesh->get_position().x == x;
 			else if(InputManager::IsKeyPressed(GLFW_KEY_H))
-				return mesh->get_position().x < x;
+				return mesh->get_position().x < x && mesh->get_position().y == y;
 			else
-				return mesh->get_position().x > x;
+				return mesh->get_position().x > x && mesh->get_position().y == y;
 		});
 		if(it != meshes.end()){
 			current_mesh = (*it)->idx;
@@ -153,7 +153,6 @@ void Level::load(){
 	if (j.contains("data") && j["data"].is_array()) {
 		for (const auto& arr : j["data"]) {
 			if (arr.is_array() && arr.size() == 5) {
-				std::cout<<"hi"<<std::endl;
 				add_mesh(glm::vec2(arr[3], arr[4]), glm::vec3(arr[0], arr[1], arr[2]));
 			}
 		}
