@@ -12,6 +12,7 @@
 
 #include <json.hpp>
 
+#include "GLFW/glfw3.h"
 #include "input_manager.hpp"
 
 using namespace nlohmann;
@@ -52,7 +53,7 @@ void LevelEditor::load(){
 	if (j.contains("data") && j["data"].is_array()) {
 		for (const auto& arr : j["data"]) {
 			if (arr.is_array() && arr.size() == 5) {
-				add_mesh(glm::vec3(arr[0], arr[1], arr[2]), glm::vec2(arr[3], arr[4]));
+				add_mesh(glm::vec3(arr[0], arr[1], arr[2]), glm::vec2(arr[3], arr[4]), get_level_size());
 			}
 		}
 	}
@@ -85,8 +86,8 @@ void LevelEditor::save(){
 }
 
 void LevelEditor::Draw(j3e::Shader highlight_shader){
-	highlight_mesh->Draw(highlight_shader);
 	level.Draw();
+	highlight_mesh->Draw(highlight_shader);
 }
 
 void LevelEditor::Draw_UI(){
@@ -101,8 +102,10 @@ void LevelEditor::Draw_UI(){
 				return mesh->get_position().y == y+1 && mesh->get_position().x == x;
 			else if(j3e::InputManager::IsKeyPressed(GLFW_KEY_L))
 				return mesh->get_position().x == x+1 && mesh->get_position().y == y;
-			else
+			else if(j3e::InputManager::IsKeyPressed(GLFW_KEY_H))
 				return mesh->get_position().x == x-1 && mesh->get_position().y == y;
+			else
+				return false;
 		});
 		if(it != level.meshes.end()){
 			current_mesh = (*it)->idx;
@@ -240,6 +243,8 @@ LevelEditor::LevelEditor(std::vector<float> vertices, std::vector<unsigned int> 
 	};
 
 	add_mesh();
+
+	current_mesh = 0;
 
 	highlight_mesh = std::make_unique<j3e::Mesh>(j3e::Mesh(glm::vec2(-0.52, 0.52), highlight_vertices, indices, glm::vec3(2.0f, .0f, .0f), "res/img/brick.jpg"));
 	highlight_mesh->get_position() = level.meshes[0]->get_position();

@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/dave/Documents/c++/J3C/j3e/include -I/home/dave/Documents/c++/J3C/thirdparty/glfw/include -I/home/dave/Documents/c++/J3C/thirdparty/glad/include -I/home/dave/Documents/c++/J3C/thirdparty/imgui/include
 
-CXX_FLAGS = -g -std=gnu++20
+CXX_FLAGS = -g -std=gnu++23
 
