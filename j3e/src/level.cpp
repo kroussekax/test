@@ -39,10 +39,13 @@ void Level::Draw(){
 
 void Level::Draw_UI(){
 	// vim motions
-	if(InputManager::IsKeyPressed(GLFW_KEY_K)){
+	if(InputManager::IsKeyPressed(GLFW_KEY_K) || InputManager::IsKeyPressed(GLFW_KEY_J)){
 		float y = meshes[current_mesh]->get_position().y;
 		auto it = std::find_if(meshes.begin(), meshes.end(), [y](std::unique_ptr<Mesh>& mesh){
-			return mesh->get_position().y > y;
+			if(InputManager::IsKeyPressed(GLFW_KEY_K))
+				return mesh->get_position().y > y;
+			else
+				return mesh->get_position().y < y;
 		});
 		if(it != meshes.end()){
 			current_mesh = (*it)->idx;
@@ -79,6 +82,9 @@ void Level::Draw_UI(){
 		ImGui::SetNextItemWidth(100);
 		if(ImGui::InputFloat("TP Height", &meshes[current_mesh]->height.y)){
 			change_height(meshes[current_mesh]->height);
+
+			highlight_mesh->height.y  = meshes[current_mesh]->height.y;
+			highlight_mesh->update_height();
 		}
 		ImGui::SameLine();
 		if(ImGui::SliderFloat(std::format("##TP Height{}", current_mesh).c_str(), &meshes[current_mesh]->height.y, -0.5f, 1.0f)){
@@ -115,8 +121,6 @@ void Level::Draw_UI(){
 
 	if(update_highlight){
 		highlight_mesh->get_position() = meshes[current_mesh]->get_position();
-		highlight_mesh->height = meshes[current_mesh]->height+glm::vec2(0.4f);
-		highlight_mesh->update_height();
 	}
 
 }
