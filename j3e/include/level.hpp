@@ -9,50 +9,14 @@
 #define DEFAULT_IMG_PATH "res/img/brick.jpg"
 
 namespace j3e{
-class Level{
-private:
+struct Level{
 	char* lvl_name;
-
-	Shader mesh_shader;
-	Shader highlight_shader;
-
-	std::vector<float> default_vertices;
-	std::vector<unsigned int> default_indices;
-
-	std::unique_ptr<Mesh> highlight_mesh; /* optimize this shit yo */
 	std::vector<std::unique_ptr<Mesh>> meshes; /* prolly gonna be changed after adding assimp support to load models */
-	int current_mesh;
-
-	void change_height(glm::vec2 height);
-
-	bool update_highlight;
-public:
-	void add_mesh(glm::vec2 height, glm::vec3 pos, std::vector<float> vertices, std::vector<unsigned int> indices, const char* img_path){
-		meshes.push_back(std::make_unique<Mesh>(height, vertices, indices, pos, img_path));
-	}
-
-	void add_mesh(glm::vec2 height, glm::vec3 pos, const char* img_path=DEFAULT_IMG_PATH){
-		meshes.push_back(std::make_unique<Mesh>(height, default_vertices, default_indices, pos, img_path, meshes.size()));
-	}
-
-	void add_mesh(){
-		int idx = meshes.size();
-		if(meshes.size() > 0){
-			auto mesh = meshes[current_mesh]->clone();
-			mesh->idx = meshes.size();
-			meshes.push_back(std::move(mesh));
-		}
-		else
-			meshes.push_back(std::make_unique<Mesh>(glm::vec2(-0.5f, 0.5f), default_vertices, default_indices, glm::vec3(1.0f, 0.0f, .0f), DEFAULT_IMG_PATH));
-	}
-
-	void load();
-	void save();
+	Shader mesh_shader;
 
 	void Draw();
-	void Draw_UI();
 
-	Level(char* lvl_name, std::vector<float> vertices, std::vector<unsigned int> indices); /* vertices and indices here are for the first/default mesh*/
+	Level(char* lvl_name, Shader mesh_shader):lvl_name{lvl_name}, mesh_shader{mesh_shader}{};
 	Level();
 };
 }
