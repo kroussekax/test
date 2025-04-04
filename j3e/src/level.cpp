@@ -39,13 +39,18 @@ void Level::Draw(){
 
 void Level::Draw_UI(){
 	// vim motions
-	if(InputManager::IsKeyPressed(GLFW_KEY_K) || InputManager::IsKeyPressed(GLFW_KEY_J)){
+	if(InputManager::IsKeyPressed(GLFW_KEY_K) || InputManager::IsKeyPressed(GLFW_KEY_J) || InputManager::IsKeyPressed(GLFW_KEY_H) || InputManager::IsKeyPressed(GLFW_KEY_L)){
 		float y = meshes[current_mesh]->get_position().y;
-		auto it = std::find_if(meshes.begin(), meshes.end(), [y](std::unique_ptr<Mesh>& mesh){
+		float x = meshes[current_mesh]->get_position().x;
+		auto it = std::find_if(meshes.begin(), meshes.end(), [x, y](std::unique_ptr<Mesh>& mesh){
 			if(InputManager::IsKeyPressed(GLFW_KEY_K))
 				return mesh->get_position().y > y;
-			else
+			else if(InputManager::IsKeyPressed(GLFW_KEY_J))
 				return mesh->get_position().y < y;
+			else if(InputManager::IsKeyPressed(GLFW_KEY_H))
+				return mesh->get_position().x < x;
+			else
+				return mesh->get_position().x > x;
 		});
 		if(it != meshes.end()){
 			current_mesh = (*it)->idx;
