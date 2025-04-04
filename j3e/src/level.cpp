@@ -43,14 +43,14 @@ void Level::Draw_UI(){
 		float y = meshes[current_mesh]->get_position().y;
 		float x = meshes[current_mesh]->get_position().x;
 		auto it = std::find_if(meshes.begin(), meshes.end(), [x, y](std::unique_ptr<Mesh>& mesh){
-			if(InputManager::IsKeyPressed(GLFW_KEY_K))
-				return mesh->get_position().y > y && mesh->get_position().x == x;
-			else if(InputManager::IsKeyPressed(GLFW_KEY_J))
-				return mesh->get_position().y < y && mesh->get_position().x == x;
-			else if(InputManager::IsKeyPressed(GLFW_KEY_H))
-				return mesh->get_position().x < x && mesh->get_position().y == y;
+			if(InputManager::IsKeyPressed(GLFW_KEY_J))
+				return mesh->get_position().y == y -1&& mesh->get_position().x == x;
+			else if(InputManager::IsKeyPressed(GLFW_KEY_K))
+				return mesh->get_position().y == y+1 && mesh->get_position().x == x;
+			else if(InputManager::IsKeyPressed(GLFW_KEY_L))
+				return mesh->get_position().x == x+1 && mesh->get_position().y == y;
 			else
-				return mesh->get_position().x > x && mesh->get_position().y == y;
+				return mesh->get_position().x == x-1 && mesh->get_position().y == y;
 		});
 		if(it != meshes.end()){
 			current_mesh = (*it)->idx;
