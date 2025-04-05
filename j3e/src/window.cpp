@@ -11,7 +11,7 @@ namespace j3e{
 void Window::input(float dt, Camera& camera){
 	InputManager::Update(window);
 
-	if(InputManager::IsKeyPressed(GLFW_KEY_CAPS_LOCK)){
+	if(InputManager::IsKeyPressed(GLFW_KEY_T)){
 		if(glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		else

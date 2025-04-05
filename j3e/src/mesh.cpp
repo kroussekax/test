@@ -72,11 +72,60 @@ void Mesh::update_height(){
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
+void Mesh::update_sides(){
+	vertices[0] = sides.y;
+	vertices[5] = sides.x;
+	vertices[10] = sides.x;
+	vertices[15] = sides.x;
+	vertices[20] = sides.y;
+	vertices[25] = sides.y;
 
-Mesh::Mesh(glm::vec2 height, std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos, const char* texture_path, int idx):idx{idx}{
+	vertices[30] = sides.y;
+	vertices[35] = sides.x;
+	vertices[40] = sides.x;
+	vertices[45] = sides.x;
+	vertices[50] = sides.y;
+	vertices[55] = sides.y;
+
+	vertices[60] = sides.x;
+	vertices[65] = sides.x;
+	vertices[70] = sides.y;
+	vertices[75] = sides.y;
+	vertices[80] = sides.y;
+	vertices[85] = sides.x;
+
+	vertices[90] = sides.x;
+	vertices[95] = sides.x;
+	vertices[100] = sides.y;
+	vertices[105] = sides.y;
+	vertices[110] = sides.y;
+	vertices[115] = sides.x;
+
+	vertices[120] = sides.y;
+	vertices[125] = sides.x;
+	vertices[130] = sides.x;
+	vertices[135] = sides.x;
+	vertices[140] = sides.y;
+	vertices[145] = sides.y;
+
+	vertices[150] = sides.y;
+	vertices[155] = sides.x;
+	vertices[160] = sides.x;
+	vertices[165] = sides.x;
+	vertices[170] = sides.y;
+	vertices[175] = sides.y;
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+Mesh::Mesh(glm::vec2 sides, glm::vec2 height, std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos, const char* texture_path, int idx):idx{idx}{
 	this->height = height;
+	this->sides = sides;
 	this->vertices = vertices;
 	this->indices = indices;
+
 	glEnable(GL_DEPTH_TEST);
 
 	glGenVertexArrays(1, &VAO);
