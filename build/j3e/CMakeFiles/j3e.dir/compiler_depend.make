@@ -205,27 +205,48 @@ j3e/CMakeFiles/j3e.dir/src/globals.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/g
   /usr/include/bits/wchar.h \
   /usr/include/bits/wordsize.h \
   /usr/include/bits/xopen_lim.h \
+  /usr/include/c++/14.2.1/backward/binders.h \
   /usr/include/c++/14.2.1/bit \
+  /usr/include/c++/14.2.1/bits/alloc_traits.h \
+  /usr/include/c++/14.2.1/bits/allocator.h \
   /usr/include/c++/14.2.1/bits/concept_check.h \
   /usr/include/c++/14.2.1/bits/cpp_type_traits.h \
   /usr/include/c++/14.2.1/bits/exception.h \
   /usr/include/c++/14.2.1/bits/exception_defines.h \
   /usr/include/c++/14.2.1/bits/functexcept.h \
+  /usr/include/c++/14.2.1/bits/functional_hash.h \
+  /usr/include/c++/14.2.1/bits/hash_bytes.h \
+  /usr/include/c++/14.2.1/bits/invoke.h \
   /usr/include/c++/14.2.1/bits/iterator_concepts.h \
+  /usr/include/c++/14.2.1/bits/max_size_type.h \
+  /usr/include/c++/14.2.1/bits/memory_resource.h \
+  /usr/include/c++/14.2.1/bits/memoryfwd.h \
   /usr/include/c++/14.2.1/bits/move.h \
+  /usr/include/c++/14.2.1/bits/new_allocator.h \
   /usr/include/c++/14.2.1/bits/predefined_ops.h \
   /usr/include/c++/14.2.1/bits/ptr_traits.h \
+  /usr/include/c++/14.2.1/bits/range_access.h \
+  /usr/include/c++/14.2.1/bits/ranges_base.h \
   /usr/include/c++/14.2.1/bits/ranges_cmp.h \
+  /usr/include/c++/14.2.1/bits/ranges_util.h \
+  /usr/include/c++/14.2.1/bits/refwrap.h \
   /usr/include/c++/14.2.1/bits/requires_hosted.h \
   /usr/include/c++/14.2.1/bits/specfun.h \
   /usr/include/c++/14.2.1/bits/std_abs.h \
   /usr/include/c++/14.2.1/bits/stl_algobase.h \
+  /usr/include/c++/14.2.1/bits/stl_bvector.h \
   /usr/include/c++/14.2.1/bits/stl_construct.h \
+  /usr/include/c++/14.2.1/bits/stl_function.h \
   /usr/include/c++/14.2.1/bits/stl_iterator.h \
   /usr/include/c++/14.2.1/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/14.2.1/bits/stl_iterator_base_types.h \
   /usr/include/c++/14.2.1/bits/stl_pair.h \
+  /usr/include/c++/14.2.1/bits/stl_uninitialized.h \
+  /usr/include/c++/14.2.1/bits/stl_vector.h \
+  /usr/include/c++/14.2.1/bits/uses_allocator.h \
+  /usr/include/c++/14.2.1/bits/uses_allocator_args.h \
   /usr/include/c++/14.2.1/bits/utility.h \
+  /usr/include/c++/14.2.1/bits/vector.tcc \
   /usr/include/c++/14.2.1/bits/version.h \
   /usr/include/c++/14.2.1/cassert \
   /usr/include/c++/14.2.1/cfloat \
@@ -237,10 +258,13 @@ j3e/CMakeFiles/j3e.dir/src/globals.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/g
   /usr/include/c++/14.2.1/cstdint \
   /usr/include/c++/14.2.1/debug/assertions.h \
   /usr/include/c++/14.2.1/debug/debug.h \
+  /usr/include/c++/14.2.1/ext/alloc_traits.h \
   /usr/include/c++/14.2.1/ext/numeric_traits.h \
   /usr/include/c++/14.2.1/ext/type_traits.h \
+  /usr/include/c++/14.2.1/initializer_list \
   /usr/include/c++/14.2.1/limits \
   /usr/include/c++/14.2.1/new \
+  /usr/include/c++/14.2.1/numbers \
   /usr/include/c++/14.2.1/pstl/pstl_config.h \
   /usr/include/c++/14.2.1/tr1/bessel_function.tcc \
   /usr/include/c++/14.2.1/tr1/beta_function.tcc \
@@ -254,7 +278,10 @@ j3e/CMakeFiles/j3e.dir/src/globals.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/g
   /usr/include/c++/14.2.1/tr1/poly_laguerre.tcc \
   /usr/include/c++/14.2.1/tr1/riemann_zeta.tcc \
   /usr/include/c++/14.2.1/tr1/special_function_util.h \
+  /usr/include/c++/14.2.1/tuple \
   /usr/include/c++/14.2.1/type_traits \
+  /usr/include/c++/14.2.1/vector \
+  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
   /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
   /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h \
   /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
@@ -2122,6 +2149,7 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
   /usr/include/c++/14.2.1/bits/std_abs.h \
   /usr/include/c++/14.2.1/bits/stl_algo.h \
   /usr/include/c++/14.2.1/bits/stl_algobase.h \
+  /usr/include/c++/14.2.1/bits/stl_bvector.h \
   /usr/include/c++/14.2.1/bits/stl_construct.h \
   /usr/include/c++/14.2.1/bits/stl_function.h \
   /usr/include/c++/14.2.1/bits/stl_heap.h \
@@ -2130,6 +2158,8 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
   /usr/include/c++/14.2.1/bits/stl_iterator_base_types.h \
   /usr/include/c++/14.2.1/bits/stl_pair.h \
   /usr/include/c++/14.2.1/bits/stl_tempbuf.h \
+  /usr/include/c++/14.2.1/bits/stl_uninitialized.h \
+  /usr/include/c++/14.2.1/bits/stl_vector.h \
   /usr/include/c++/14.2.1/bits/streambuf.tcc \
   /usr/include/c++/14.2.1/bits/streambuf_iterator.h \
   /usr/include/c++/14.2.1/bits/string_view.tcc \
@@ -2141,6 +2171,7 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
   /usr/include/c++/14.2.1/bits/uses_allocator.h \
   /usr/include/c++/14.2.1/bits/uses_allocator_args.h \
   /usr/include/c++/14.2.1/bits/utility.h \
+  /usr/include/c++/14.2.1/bits/vector.tcc \
   /usr/include/c++/14.2.1/bits/version.h \
   /usr/include/c++/14.2.1/cassert \
   /usr/include/c++/14.2.1/cctype \
@@ -2204,6 +2235,7 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
   /usr/include/c++/14.2.1/typeinfo \
   /usr/include/c++/14.2.1/unordered_map \
   /usr/include/c++/14.2.1/variant \
+  /usr/include/c++/14.2.1/vector \
   /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/atomic_word.h \
   /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
   /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
@@ -2325,36 +2357,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_clip_space.inl:
 
-/home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_transform.inl:
-
-/usr/include/limits.h:
-
-/usr/include/endian.h:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_quat.hpp:
-
-/usr/include/stdint.h:
-
-/usr/include/c++/14.2.1/bits/ostream.tcc:
-
-/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h:
-
-/usr/include/c++/14.2.1/bits/std_abs.h:
-
-/usr/include/c++/14.2.1/bits/stl_bvector.h:
-
-/usr/include/c++/14.2.1/tr1/riemann_zeta.tcc:
-
-/usr/include/c++/14.2.1/tr1/poly_laguerre.tcc:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/vector_relational.hpp:
-
-/usr/include/c++/14.2.1/cwchar:
-
-/usr/include/c++/14.2.1/tr1/legendre_function.tcc:
-
-/usr/include/unistd.h:
-
 /usr/include/c++/14.2.1/limits:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_float1.hpp:
@@ -2363,23 +2365,17 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/sys/time.h:
 
+/usr/include/c++/14.2.1/initializer_list:
+
+/usr/include/c++/14.2.1/cfloat:
+
 /usr/include/c++/14.2.1/debug/assertions.h:
 
 /usr/include/asm/posix_types.h:
 
 /usr/include/bits/time.h:
 
-/usr/include/c++/14.2.1/cstdint:
-
-/usr/include/linux/limits.h:
-
 /usr/include/c++/14.2.1/compare:
-
-/usr/include/c++/14.2.1/cfloat:
-
-/usr/include/c++/14.2.1/initializer_list:
-
-/usr/include/c++/14.2.1/tr1/gamma.tcc:
 
 /usr/include/c++/14.2.1/bits/version.h:
 
@@ -2387,11 +2383,25 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/atomic_word.h:
 
+/usr/include/c++/14.2.1/bits/stl_uninitialized.h:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_vec3.inl:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/float.h:
+
+/usr/include/bits/types/struct_sched_param.h:
+
 /usr/include/c++/14.2.1/bits/stl_algobase.h:
 
 /usr/include/c++/14.2.1/cstdlib:
 
 /home/dave/Documents/c++/J3C/j3e/src/mesh.cpp:
+
+/usr/include/c++/14.2.1/bits/std_abs.h:
+
+/usr/include/c++/14.2.1/bits/stl_bvector.h:
+
+/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h:
 
 /usr/include/c++/14.2.1/bits/ranges_cmp.h:
 
@@ -2399,11 +2409,23 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/bits/move.h:
 
+/home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_int3_sized.hpp:
+
+/usr/include/c++/14.2.1/cstdint:
+
+/usr/include/c++/14.2.1/bits/invoke.h:
+
+/usr/include/c++/14.2.1/bits/functional_hash.h:
+
+/usr/include/bits/types/__locale_t.h:
+
 /usr/include/c++/14.2.1/bits/cpp_type_traits.h:
 
 /usr/include/c++/14.2.1/bits/fs_path.h:
 
 /usr/include/c++/14.2.1/bits/requires_hosted.h:
+
+/usr/include/c++/14.2.1/bits/memoryfwd.h:
 
 /usr/include/bits/waitstatus.h:
 
@@ -2439,9 +2461,11 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/iostream:
 
-/usr/include/c++/14.2.1/tr1/exp_integral.tcc:
-
 /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
+
+/home/dave/Documents/c++/J3C/j3e/include/window.hpp:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_double2.hpp:
 
 /usr/include/bits/select.h:
 
@@ -2475,12 +2499,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/bits/flt-eval-method.h:
 
-/usr/include/features.h:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_mat4x3.inl:
-
-/usr/include/bits/types/__FILE.h:
-
 /usr/include/c++/14.2.1/cassert:
 
 /usr/include/bits/endianness.h:
@@ -2496,10 +2514,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /usr/include/bits/types/__sigset_t.h:
 
 /home/dave/Documents/c++/J3C/thirdparty/imgui/include/imconfig.h:
-
-/usr/include/bits/types/__locale_t.h:
-
-/usr/include/c++/14.2.1/bits/functional_hash.h:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_double3x3.hpp:
 
@@ -2549,10 +2563,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /home/dave/Documents/c++/J3C/j3e/src/globals.cpp:
 
-/usr/include/c++/14.2.1/type_traits:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_float2x4.hpp:
-
 /usr/include/bits/types/struct_tm.h:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_mat3x2.inl:
@@ -2571,6 +2581,10 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/asm/unistd.h:
 
+/usr/include/c++/14.2.1/bits/uses_allocator.h:
+
+/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/ctype_inline.h:
+
 /usr/include/c++/14.2.1/ext/type_traits.h:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_double2_precision.hpp:
@@ -2580,6 +2594,8 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /usr/include/bits/timesize.h:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_float2.hpp:
+
+/usr/include/c++/14.2.1/bits/new_allocator.h:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/mat4x2.hpp:
 
@@ -2594,16 +2610,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_double3x2_precision.hpp:
 
 /usr/include/c++/14.2.1/variant:
-
-/usr/include/bits/sched.h:
-
-/usr/include/bits/struct_rwlock.h:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_float2x3.hpp:
-
-/usr/include/gnu/stubs-64.h:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_float2x4_precision.hpp:
 
 /usr/include/bits/types/mbstate_t.h:
 
@@ -2626,6 +2632,14 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /home/dave/Documents/c++/J3C/j3e/include/glm/simd/platform.h:
 
 /usr/include/bits/types/time_t.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/mm_malloc.h:
+
+/usr/include/bits/unistd_ext.h:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/detail/func_trigonometric.inl:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/mat4x4.hpp:
 
 /usr/include/asm/unistd_64.h:
 
@@ -2657,10 +2671,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_double4x2.hpp:
 
-/home/dave/Documents/c++/J3C/j3e/include/window.hpp:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_double2.hpp:
-
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stdint.h:
 
 /usr/include/bits/mathcalls-narrow.h:
@@ -2680,6 +2690,10 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/func_matrix.inl:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_float4x3.hpp:
+
+/usr/include/c++/14.2.1/bits/allocator.h:
+
+/usr/include/c++/14.2.1/debug/debug.h:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_double3x2.hpp:
 
@@ -2707,11 +2721,15 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/pstl/glue_algorithm_defs.h:
 
+/home/dave/Documents/c++/J3C/j3e/include/glm/vector_relational.hpp:
+
+/usr/include/c++/14.2.1/tr1/poly_laguerre.tcc:
+
+/usr/include/c++/14.2.1/cwchar:
+
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/scalar_uint_sized.hpp:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_mat3x2.hpp:
-
-/usr/include/c++/14.2.1/tr1/beta_function.tcc:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/_vectorize.hpp:
 
@@ -2719,7 +2737,25 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/string_view:
 
+/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_mat4x3.inl:
+
+/usr/include/features.h:
+
+/usr/include/bits/struct_rwlock.h:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_float2x3.hpp:
+
+/usr/include/bits/sched.h:
+
+/usr/include/bits/types/__FILE.h:
+
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_vec1.hpp:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_float_precision.hpp:
+
+/usr/include/c++/14.2.1/bits/max_size_type.h:
+
+/usr/include/c++/14.2.1/bits/stream_iterator.h:
 
 /usr/include/c++/14.2.1/utility:
 
@@ -2727,13 +2763,17 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/mat4x3.hpp:
 
+/usr/include/c++/14.2.1/bits/alloc_traits.h:
+
+/usr/include/bits/types/struct___jmp_buf_tag.h:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_vec4.hpp:
+
+/usr/include/c++/14.2.1/bits/sstream.tcc:
+
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_half.inl:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_mat4x4.hpp:
-
-/usr/include/c++/14.2.1/array:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/detail/func_geometric.inl:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_int3.hpp:
 
@@ -2761,6 +2801,10 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/bits/stl_iterator_base_funcs.h:
 
+/usr/include/c++/14.2.1/bits/valarray_array.h:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_mat2x4.hpp:
+
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_bool3.hpp:
 
 /usr/include/pthread.h:
@@ -2785,10 +2829,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stdarg.h:
 
-/usr/include/gnu/stubs.h:
-
-/usr/include/c++/14.2.1/bits/localefwd.h:
-
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_common.inl:
 
 /usr/include/bits/pthreadtypes-arch.h:
@@ -2796,12 +2836,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /usr/include/c++/14.2.1/new:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/setup.hpp:
-
-/usr/include/c++/14.2.1/ext/alloc_traits.h:
-
-/usr/include/c++/14.2.1/tr1/hypergeometric.tcc:
-
-/usr/include/c++/14.2.1/bits/fstream.tcc:
 
 /usr/include/c++/14.2.1/climits:
 
@@ -2849,21 +2883,11 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/bits/atomic_wait.h:
 
+/usr/include/c++/14.2.1/bits/ranges_util.h:
+
 /usr/include/bits/waitflags.h:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_vec2.inl:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/mat3x2.hpp:
-
-/usr/include/c++/14.2.1/tr1/modified_bessel_func.tcc:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_vec3.inl:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/float.h:
-
-/usr/include/bits/types/struct_sched_param.h:
-
-/usr/include/c++/14.2.1/bits/stl_uninitialized.h:
 
 /usr/include/bits/fp-fast.h:
 
@@ -2878,14 +2902,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /home/dave/Documents/c++/J3C/thirdparty/glad/include/KHR/khrplatform.h:
 
 /usr/include/c++/14.2.1/filesystem:
-
-/usr/include/bits/types/struct___jmp_buf_tag.h:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_vec4.hpp:
-
-/usr/include/c++/14.2.1/bits/alloc_traits.h:
-
-/usr/include/c++/14.2.1/bits/sstream.tcc:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_float3x2_precision.hpp:
 
@@ -2951,14 +2967,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/bits/stl_heap.h:
 
-/home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_int3_sized.hpp:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_float_precision.hpp:
-
-/usr/include/c++/14.2.1/bits/stream_iterator.h:
-
-/usr/include/c++/14.2.1/bits/max_size_type.h:
-
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_double3.hpp:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_bool1.hpp:
@@ -2991,13 +2999,85 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/vector_uint4.hpp:
 
+/usr/include/c++/14.2.1/bits/stl_function.h:
+
+/usr/include/ctype.h:
+
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/func_packing.inl:
 
 /usr/include/bits/xopen_lim.h:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/qualifier.hpp:
 
+/usr/include/c++/14.2.1/bits/refwrap.h:
+
 /home/dave/Documents/c++/J3C/j3e/include/glm/integer.hpp:
+
+/usr/include/c++/14.2.1/tr1/beta_function.tcc:
+
+/usr/include/c++/14.2.1/tr1/exp_integral.tcc:
+
+/usr/include/c++/14.2.1/tr1/gamma.tcc:
+
+/usr/include/c++/14.2.1/ext/alloc_traits.h:
+
+/usr/include/c++/14.2.1/tr1/hypergeometric.tcc:
+
+/usr/include/c++/14.2.1/bits/fstream.tcc:
+
+/usr/include/c++/14.2.1/tr1/legendre_function.tcc:
+
+/usr/include/unistd.h:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/mat3x2.hpp:
+
+/usr/include/c++/14.2.1/tr1/modified_bessel_func.tcc:
+
+/usr/include/c++/14.2.1/tr1/riemann_zeta.tcc:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/gtc/matrix_transform.inl:
+
+/usr/include/c++/14.2.1/tuple:
+
+/usr/include/c++/14.2.1/bits/stl_vector.h:
+
+/usr/include/bits/timex.h:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_float2x4.hpp:
+
+/usr/include/c++/14.2.1/type_traits:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/detail/func_geometric.inl:
+
+/usr/include/c++/14.2.1/array:
+
+/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/geometric.hpp:
+
+/usr/include/c++/14.2.1/system_error:
+
+/usr/include/endian.h:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_quat.hpp:
+
+/usr/include/stdint.h:
+
+/usr/include/c++/14.2.1/bits/ostream.tcc:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_float2x4_precision.hpp:
+
+/usr/include/gnu/stubs-64.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/c++/14.2.1/bits/localefwd.h:
+
+/home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_transform.inl:
+
+/usr/include/limits.h:
+
+/usr/include/linux/limits.h:
 
 /usr/include/stdc-predef.h:
 
@@ -3063,6 +3143,10 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/asm-generic/ioctl.h:
 
+/usr/include/c++/14.2.1/bits/memory_resource.h:
+
+/usr/include/asm-generic/ioctls.h:
+
 /usr/include/asm-generic/posix_types.h:
 
 /usr/include/asm/bitsperlong.h:
@@ -3123,10 +3207,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/bits/syscall.h:
 
-/home/dave/Documents/c++/J3C/j3e/include/glm/gtc/matrix_transform.inl:
-
-/usr/include/c++/14.2.1/tuple:
-
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_float3x2.hpp:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_double3x3_precision.hpp:
@@ -3155,18 +3235,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/bits/types/struct_itimerspec.h:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/mm_malloc.h:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/detail/func_trigonometric.inl:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/mat4x4.hpp:
-
-/usr/include/bits/unistd_ext.h:
-
-/usr/include/c++/14.2.1/bits/uses_allocator.h:
-
-/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/ctype_inline.h:
-
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/quaternion_transform.hpp:
 
 /usr/include/c++/14.2.1/bits/postypes.h:
@@ -3178,14 +3246,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /usr/include/c++/14.2.1/pstl/glue_numeric_defs.h:
 
 /usr/include/c++/14.2.1/bits/align.h:
-
-/usr/include/c++/14.2.1/debug/debug.h:
-
-/usr/include/c++/14.2.1/bits/allocator.h:
-
-/home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_mat2x4.hpp:
-
-/usr/include/c++/14.2.1/bits/valarray_array.h:
 
 /usr/include/c++/14.2.1/bits/atomic_base.h:
 
@@ -3227,8 +3287,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/bits/hashtable.h:
 
-/usr/include/c++/14.2.1/bits/invoke.h:
-
 /usr/include/c++/14.2.1/bits/istream.tcc:
 
 /usr/include/c++/14.2.1/bits/locale_classes.h:
@@ -3247,19 +3305,15 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/bits/locale_facets_nonio.tcc:
 
-/usr/include/asm-generic/ioctls.h:
-
-/usr/include/c++/14.2.1/bits/memory_resource.h:
-
-/usr/include/c++/14.2.1/bits/memoryfwd.h:
-
 /usr/include/c++/14.2.1/bits/mofunc_impl.h:
 
 /home/dave/Documents/c++/J3C/j3e/include/glm/ext/matrix_double4x4_precision.hpp:
 
 /usr/include/c++/14.2.1/bits/move_only_function.h:
 
-/usr/include/c++/14.2.1/bits/new_allocator.h:
+/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/error_constants.h:
+
+/usr/include/c++/14.2.1/bits/nested_exception.h:
 
 /usr/include/c++/14.2.1/cmath:
 
@@ -3283,10 +3337,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/linux/sched/types.h:
 
-/usr/include/c++/14.2.1/bits/ranges_util.h:
-
-/usr/include/c++/14.2.1/bits/refwrap.h:
-
 /usr/include/c++/14.2.1/bits/shared_ptr_atomic.h:
 
 /usr/include/c++/14.2.1/format:
@@ -3300,10 +3350,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /usr/include/c++/14.2.1/bits/std_mutex.h:
 
 /usr/include/c++/14.2.1/bits/stl_algo.h:
-
-/usr/include/ctype.h:
-
-/usr/include/c++/14.2.1/bits/stl_function.h:
 
 /usr/include/c++/14.2.1/bits/stl_map.h:
 
@@ -3320,10 +3366,6 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 /home/dave/Documents/c++/J3C/j3e/include/glm/detail/type_mat2x2.inl:
 
 /usr/include/c++/14.2.1/bits/stl_tempbuf.h:
-
-/usr/include/bits/timex.h:
-
-/usr/include/c++/14.2.1/bits/stl_vector.h:
 
 /usr/include/c++/14.2.1/bits/string_view.tcc:
 
@@ -3407,23 +3449,13 @@ j3e/CMakeFiles/j3e.dir/src/window.cpp.o: /home/dave/Documents/c++/J3C/j3e/src/wi
 
 /usr/include/c++/14.2.1/streambuf:
 
-/home/dave/Documents/c++/J3C/j3e/include/glm/geometric.hpp:
-
-/usr/include/c++/14.2.1/system_error:
-
-/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h:
-
-/usr/include/c++/14.2.1/bits/nested_exception.h:
-
-/usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/error_constants.h:
-
 /usr/include/c++/14.2.1/unordered_map:
 
 /usr/include/c++/14.2.1/valarray:
 
-/usr/include/bits/floatn-common.h:
-
 /usr/include/c++/14.2.1/codecvt:
+
+/usr/include/bits/floatn-common.h:
 
 /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++io.h:
 

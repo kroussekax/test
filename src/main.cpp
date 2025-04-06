@@ -117,8 +117,6 @@ int main(){
 	bool cam_should_move = true;
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 
-	global = {&view, &projection, &last_time, &camera.MovementSpeed, &cam_should_move};
-
 	j3e::Shader highlight_shader = j3e::Shader("res/shaders/no_texture_vert.glsl", "res/shaders/fraghighlight.glsl");
 	char tmp[12] = "lvl";
 	hama::LevelEditor *editor = new hama::LevelEditor(vertices, indices, glm::vec2(-0.5, 0.5), "res/img/brick.jpg", tmp);
@@ -135,7 +133,11 @@ int main(){
 	ImFont* ui = io.Fonts->AddFontFromFileTTF("res/fonts/inter.ttf", 17.0f);
 	ImFont* chat = io.Fonts->AddFontFromFileTTF("res/fonts/inter.ttf", 32.0f);
 
-	std::vector<std::string> chat_logs;
+	std::vector<j3e::Chat> chat_logs;
+
+	global = {&view, &projection, &last_time, &camera.MovementSpeed, &cam_should_move, &chat_logs};
+
+	global.chat_logs->push_back({window.get_window_size().second, "hi"});
 
 	window.set_input_impl(process_input);
 
@@ -175,10 +177,18 @@ int main(){
 		float fps = 1.0f / j3e::getDeltaTime(*global.last_time);
 		draw_list->AddText(ImVec2(20, 100), IM_COL32(255, 255, 255, 255), std::format("FPS: {}", fps).c_str());
 
-		/*
 		ImGui::PushFont(chat);
+
+		if(j3e::InputManager::IsKeyPressed(GLFW_KEY_ENTER)){
+			int y = ((*global.chat_logs)[(*global.chat_logs).size()-1].y) - 32;
+			global.chat_logs->push_back({y, "hi"});
+		}
+
+		for(auto& text : (*global.chat_logs)){
+			draw_list->AddText(ImVec2(20, text.y), IM_COL32(255, 255, 255, 255), text.msg);
+		}
+
 		ImGui::PopFont();
-		*/
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

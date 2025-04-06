@@ -42,6 +42,12 @@ public:
 		custom_input_impl = impl;
 	}
 
+	std::pair<int, int> get_window_size(){
+		int w, h;
+		glfwGetWindowSize(window, &w, &h);
+		return {w, h};
+	}
+
 	void impl_imgui(){
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 	}
