@@ -132,14 +132,10 @@ void LevelEditor::Draw_UI(){
 		}
 			break;
 		case Mode::Visual:{
-			if(j3e::InputManager::IsKeyPressed(GLFW_KEY_L)){
-				highlight_mesh->sides.x += 0.5f;
-				highlight_mesh->update_sides();
-			}
+			break;
+			default:
+				break;
 		}
-			break;
-		default:
-			break;
 	}
 
 	ImGui::Begin("j3e::Mesh Control Panel");

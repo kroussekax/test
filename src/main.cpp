@@ -1,7 +1,7 @@
 #include <cstdio>
-#include <memory>
 #include <iostream>
 #include <ostream>
+#include <string>
 #include <vector>
 
 #include <imgui.h>
@@ -18,7 +18,6 @@
 #include "globals.hpp"
 
 #include "hama.hpp"
-#include "level.hpp"
 #include "window.hpp"
 #include "input_manager.hpp"
 
@@ -112,7 +111,6 @@ int main(){
 		1, 2, 3    // second triangle
 	};
 
-
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1000.0f / 1000.0f, 0.1f, 100.0f);
 	float last_time = .0f;
@@ -134,6 +132,11 @@ int main(){
 	window.impl_imgui();
 	ImGui_ImplOpenGL3_Init("#version 330");
 
+	ImFont* ui = io.Fonts->AddFontFromFileTTF("res/fonts/inter.ttf", 17.0f);
+	ImFont* chat = io.Fonts->AddFontFromFileTTF("res/fonts/inter.ttf", 32.0f);
+
+	std::vector<std::string> chat_logs;
+
 	window.set_input_impl(process_input);
 
 	while(!window.should_close()){
@@ -151,21 +154,31 @@ int main(){
 		*global.projection = glm::perspective(glm::radians(camera.Zoom), (float)1000 / (float)1000, 0.1f, 100.0f);
 		*global.view = camera.GetViewMatrix();
 
-		ImGui::Begin("J3C Control Window");
+		ImGui::PushFont(ui);
+
+		ImGui::Begin("Camera Controll Window");
 		{
 			//ImGui::SliderFloat("Mesh1 Pos", &mesh->get_position().x, .0f, 5.0f);
 			ImGui::SliderFloat("j3e::Camera Speed", global.MovementSpeed, .0f, 5.0f);
-			float fps = 1.0f / j3e::getDeltaTime(*global.last_time);
-			ImGui::Text("FPS: %.2f", fps);
-
-			// camera info
-			ImGui::Text("Camera X: %.2f", camera.GetViewMatrix()[3].x);
-			ImGui::Text("Camera Y: %.2f", camera.GetViewMatrix()[3].y);
-			ImGui::Text("Camera Z: %.2f", camera.GetViewMatrix()[3].z);
 		}
 		ImGui::End();
 
 		editor->Draw_UI();
+
+		ImGui::PopFont();
+
+		ImDrawList* draw_list = ImGui::GetForegroundDrawList();
+		draw_list->AddText(ImVec2(20, 20), IM_COL32(255, 255, 255, 255), std::format("Camera X: {}", camera.GetViewMatrix()[3].x).c_str());
+		draw_list->AddText(ImVec2(20, 40), IM_COL32(255, 255, 255, 255), std::format("Camera Y: {}", camera.GetViewMatrix()[3].y).c_str());
+		draw_list->AddText(ImVec2(20, 60), IM_COL32(255, 255, 255, 255), std::format("Camera Z: {}", camera.GetViewMatrix()[3].z).c_str());
+
+		float fps = 1.0f / j3e::getDeltaTime(*global.last_time);
+		draw_list->AddText(ImVec2(20, 100), IM_COL32(255, 255, 255, 255), std::format("FPS: {}", fps).c_str());
+
+		/*
+		ImGui::PushFont(chat);
+		ImGui::PopFont();
+		*/
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
