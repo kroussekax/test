@@ -137,7 +137,7 @@ int main(){
 
 	global = {&view, &projection, &last_time, &camera.MovementSpeed, &cam_should_move, &chat_logs};
 
-	global.chat_logs->push_back({window.get_window_size().second, "hi"});
+	global.chat_logs->push_back({window.get_window_size().second - 32, "hi"});
 
 	window.set_input_impl(process_input);
 
@@ -180,8 +180,11 @@ int main(){
 		ImGui::PushFont(chat);
 
 		if(j3e::InputManager::IsKeyPressed(GLFW_KEY_ENTER)){
-			int y = ((*global.chat_logs)[(*global.chat_logs).size()-1].y) - 32;
-			global.chat_logs->push_back({y, "hi"});
+			for(auto& text : (*global.chat_logs)){
+				text.y -= 32;
+			}
+			int y = window.get_window_size().second - 32;
+			global.chat_logs->push_back({y, "kimak"});
 		}
 
 		for(auto& text : (*global.chat_logs)){
