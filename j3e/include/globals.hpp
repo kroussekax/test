@@ -28,5 +28,6 @@ struct Globals{
 
 float getDeltaTime(float &last_time);
 void linkAttrib(unsigned int& vbo, GLuint layout, GLuint numComponents, GLenum type, GLsizeiptr stride, void* offset);
+void add_msg(const char* msg);
 }
 inline j3e::Globals global;
