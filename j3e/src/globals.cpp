@@ -1,5 +1,8 @@
 #include "globals.hpp"
 
+#include <iostream>
+#include <fstream>
+
 namespace j3e{
 float getDeltaTime(float &last_time){
 	// Get current time
@@ -22,4 +25,20 @@ void linkAttrib(unsigned int& vbo, GLuint layout, GLuint numComponents, GLenum t
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
+
+std::string readFile(std::string filename){
+	std::ifstream in(filename, std::ios::binary);
+	if (in)
+	{
+		std::string contents;
+		in.seekg(0, std::ios::end);
+		contents.resize(in.tellg());
+		in.seekg(0, std::ios::beg);
+		in.read(&contents[0], contents.size());
+		in.close();
+		return(contents);
+	}
+	throw(errno);
+}
+
 }

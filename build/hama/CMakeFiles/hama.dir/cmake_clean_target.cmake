@@ -1,3 +1,3 @@
 file(REMOVE_RECURSE
-  "libhama.a"
+  "libhamad.a"
 )

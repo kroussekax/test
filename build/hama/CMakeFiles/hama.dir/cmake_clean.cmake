@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/hama.dir/src/hama.cpp.o"
   "CMakeFiles/hama.dir/src/hama.cpp.o.d"
-  "libhama.a"
-  "libhama.pdb"
+  "libhamad.a"
+  "libhamad.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -2,27 +2,13 @@
 
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <iostream>
 
 #include <glad/glad.h>
 
-namespace j3e{
-std::string readFile(std::string filename){
-	std::ifstream in(filename, std::ios::binary);
-	if (in)
-	{
-		std::string contents;
-		in.seekg(0, std::ios::end);
-		contents.resize(in.tellg());
-		in.seekg(0, std::ios::beg);
-		in.read(&contents[0], contents.size());
-		in.close();
-		return(contents);
-	}
-	throw(errno);
-}
+#include "globals.hpp"
 
+namespace j3e{
 Shader::Shader(const char* vert_shader_parth, const char* frag_shader_parth){
 	std::string vertStr = readFile(vert_shader_parth);
 	std::string fragStr = readFile(frag_shader_parth);

@@ -15,9 +15,8 @@ void Texture::Delete(){
 	glDeleteTextures(1, &id);
 }
 
-Texture::Texture(GLenum texture_type, const char* img_path):path{img_path}{
+Texture::Texture(GLenum texture_type, const char* img_path, TexType tex_type):path{img_path}, tex_type{tex_type}{
 	glGenTextures(1, &id);
-	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(texture_type, id);
 
 	glTexParameteri(texture_type, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -35,8 +34,5 @@ Texture::Texture(GLenum texture_type, const char* img_path):path{img_path}{
 	glGenerateMipmap(texture_type);
 
 	stbi_image_free(bytes);
-}
-
-Texture::Texture(){
 }
 }

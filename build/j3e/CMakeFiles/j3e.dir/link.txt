@@ -1,2 +1,2 @@
-/usr/bin/ar qc libj3e.a CMakeFiles/j3e.dir/src/globals.cpp.o CMakeFiles/j3e.dir/src/j3e.cpp.o CMakeFiles/j3e.dir/src/level.cpp.o CMakeFiles/j3e.dir/src/mesh.cpp.o CMakeFiles/j3e.dir/src/shader.cpp.o CMakeFiles/j3e.dir/src/stb.cpp.o CMakeFiles/j3e.dir/src/texture.cpp.o CMakeFiles/j3e.dir/src/window.cpp.o
-/usr/bin/ranlib libj3e.a
+/usr/bin/ar qc libj3ed.a CMakeFiles/j3e.dir/src/globals.cpp.o CMakeFiles/j3e.dir/src/j3e.cpp.o CMakeFiles/j3e.dir/src/level.cpp.o CMakeFiles/j3e.dir/src/mesh.cpp.o CMakeFiles/j3e.dir/src/shader.cpp.o CMakeFiles/j3e.dir/src/stb.cpp.o CMakeFiles/j3e.dir/src/texture.cpp.o CMakeFiles/j3e.dir/src/window.cpp.o
+/usr/bin/ranlib libj3ed.a

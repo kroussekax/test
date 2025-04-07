@@ -15,4 +15,4 @@ add_library(j3e STATIC "${MY_SOURCES}")
 # Include directories for the library
 target_include_directories(j3e PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-target_link_libraries(j3e PRIVATE glfw glad imgui)
+target_link_libraries(j3e PRIVATE glfw glad Assimp imgui)

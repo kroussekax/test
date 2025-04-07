@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -29,5 +30,6 @@ struct Globals{
 float getDeltaTime(float &last_time);
 void linkAttrib(unsigned int& vbo, GLuint layout, GLuint numComponents, GLenum type, GLsizeiptr stride, void* offset);
 void add_msg(const char* msg);
+std::string readFile(std::string filename);
 }
 inline j3e::Globals global;

@@ -1,3 +1,3 @@
 file(REMOVE_RECURSE
-  "libj3e.a"
+  "libj3ed.a"
 )

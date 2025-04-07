@@ -12,37 +12,40 @@
 #include "texture.hpp"
 
 namespace j3e{
+struct Vertex{
+	glm::vec3 pos;
+	glm::vec3 normal;
+	glm::vec2 tex_coord;
+};
+
 class Mesh {
 private:
 	unsigned int VBO, VAO, EBO;
-	Texture texture;
 
-	unsigned int model_loc;
-	unsigned int view_loc;
-	unsigned int projection_loc;
 	glm::vec3 pos;
 
-	std::vector<float> vertices;
+	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
+	std::vector<Texture> textures;
 public:
-	glm::vec2 height;
-	glm::vec2 sides;
 	int idx;
-
-	void update_height();
-	void update_sides();
 
 	glm::vec3& get_position(){
 		return pos;
 	}
 
-	void Draw(Shader &shader);
-
 	std::unique_ptr<Mesh> clone() const {
-		return std::make_unique<Mesh>(sides, height, vertices, indices, pos, texture.path);
+		return std::make_unique<Mesh>(vertices, indices, textures);
 	}
 
-	Mesh(glm::vec2 sides, glm::vec2 height, std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos, const char* texture_path, int idx=0);
+	void load_texture(Texture tex, int idx=0){
+		textures[idx] = tex;
+	}
+
+	void Draw(Shader &shader);
+
+	//Mesh(glm::vec2 sides, glm::vec2 height, std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec3 pos, const char* texture_path, int idx=0);
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
 	Mesh();
 };
 }
