@@ -24,8 +24,8 @@ void LevelEditor::add_mesh(glm::vec3 pos, glm::vec2 sides, glm::vec2 height, con
 }
 
 void LevelEditor::change_height(glm::vec2 height){
-	level.meshes[current_mesh[0]]->height = height;
-	level.meshes[current_mesh[0]]->update_height();
+	//level.meshes[current_mesh[0]]->height = height;
+	//level.meshes[current_mesh[0]]->update_height();
 
 	update_highlight = true;
 }
@@ -60,9 +60,10 @@ void LevelEditor::load(){
 }
 
 void LevelEditor::save(){
-	std::vector<std::array<float, 5>> positions;
+	std::vector<std::array<float, 3>> positions;
 	for (auto& mesh : level.meshes) {
-		positions.push_back({mesh->get_position().x, mesh->get_position().y, mesh->get_position().z, mesh->height.x, mesh->height.y});
+		//positions.push_back({mesh->get_position().x, mesh->get_position().y, mesh->get_position().z, mesh->height.x, mesh->height.y});
+		positions.push_back({mesh->get_position().x, mesh->get_position().y, mesh->get_position().z});
 	}
 
 	json j = {
@@ -160,6 +161,7 @@ void LevelEditor::Draw_UI(){
 		ImGui::SameLine();
 		ImGui::SliderFloat(std::format("##Z{}", current_mesh[0]).c_str(), &level.meshes[current_mesh[0]]->get_position().z, -10.0f, 10.0f);
 
+		/*
 		ImGui::SetNextItemWidth(100);
 		if(ImGui::InputFloat("TP Height", &level.meshes[current_mesh[0]]->height.y)){
 			change_height(level.meshes[current_mesh[0]]->height);
@@ -179,6 +181,7 @@ void LevelEditor::Draw_UI(){
 		if(ImGui::SliderFloat(std::format("##BT Size{}", current_mesh[0]).c_str(), &level.meshes[current_mesh[0]]->height.x, -1.0f, 0.5f)){
 			change_height(level.meshes[current_mesh[0]]->height);
 		}
+		*/
 
 		if(ImGui::Button("New j3e::Mesh", ImVec2(101, 30))){
 			add_mesh();
@@ -206,77 +209,19 @@ void LevelEditor::Draw_UI(){
 
 }
 
-LevelEditor::LevelEditor(std::vector<float> vertices, std::vector<unsigned int> indices, glm::vec2 height, const char* img_path,
-						 char* lvl_name){
+LevelEditor::LevelEditor(std::vector<j3e::Vertex> vertices, std::vector<unsigned int> indices, char* lvl_name, Defaults defaults):defaults{defaults}{
 	mode = Mode::Normal;
-
-	Defaults = {
-		.vertices = vertices,
-		.indices = indices,
-		.height = height,
-		.img_path = img_path
-	};
 
 	j3e::Shader mesh_shader = j3e::Shader("res/shaders/vertexshaders.glsl", "res/shaders/fragmentshaders.glsl");
 
 	level = j3e::Level(lvl_name, mesh_shader);
-
-	std::vector<float> highlight_vertices = {
-		// !back
-		-0.52f, -0.52, -0.52f,  0.0f, 0.0f,
-		0.52f, -0.52, -0.52f,	  1.0f, 0.0f,
-		0.52f,  0.52f, -0.52f,   1.0f, 1.0f,
-		0.52f,  0.52f, -0.52f,   1.0f, 1.0f,
-		-0.52f,  0.52f, -0.52f,  0.0f, 1.0f,
-		-0.52f, -0.52, -0.52f,  0.0f, 0.0f,
-
-		// !front
-		-0.52f, -0.52,  0.52f,  0.0f, 0.0f,
-		0.52f, -0.52,  0.52f,   1.0f, 0.0f,
-		0.52f,  0.52f,  0.52f,   1.0f, 1.0f,
-		0.52f,  0.52f,  0.52f,   1.0f, 1.0f,
-		-0.52f,  0.52f,  0.52f,  0.0f, 1.0f,
-		-0.52f, -0.52,  0.52f,  0.0f, 0.0f,
-
-		// !right
-		-0.52f,  0.52f,  0.52f,  1.0f, 0.0f,
-		-0.52f,  0.52f, -0.52f,  1.0f, 1.0f,
-		-0.52f, -0.52, -0.52f,  0.0f, 1.0f,
-		-0.52f, -0.52, -0.52f,  0.0f, 1.0f,
-		-0.52f, -0.52,  0.52f,  0.0f, 0.0f,
-		-0.52f,  0.52f,  0.52f,  1.0f, 0.0f,
-
-		// !left
-		0.52f,  0.52f,  0.52f,  1.0f, 0.0f,
-		0.52f,  0.52f, -0.52f,  1.0f, 1.0f,
-		0.52f, -0.52, -0.52f,  0.0f, 1.0f,
-		0.52f, -0.52, -0.52f,  0.0f, 1.0f,
-		0.52f, -0.52,  0.52f,  0.0f, 0.0f,
-		0.52f,  0.52f,  0.52f,  1.0f, 0.0f,
-
-		// !bottom
-		-0.52f, -0.52, -0.52f,  0.0f, 1.0f,
-		0.52f, -0.52, -0.52f,   1.0f, 1.0f,
-		0.52f, -0.52,  0.52f,   1.0f, 0.0f,
-		0.52f, -0.52,  0.52f,   1.0f, 0.0f,
-		-0.52f, -0.52,  0.52f,  0.0f, 0.0f,
-		-0.52f, -0.52, -0.52f,  0.0f, 1.0f,
-
-		// !up
-		-0.52f,  0.52f, -0.52f,  0.0f, 1.0f,
-		0.52f,  0.52f, -0.52f,   1.0f, 1.0f,
-		0.52f,  0.52f,  0.52f,   1.0f, 0.0f,
-		0.52f,  0.52f,  0.52f,   1.0f, 0.0f,
-		-0.52f,  0.52f,  0.52f,  0.0f, 0.0f,
-		-0.52f,  0.52f, -0.52f,  0.0f, 1.0f
-	};
 
 	add_mesh();
 
 	current_mesh.push_back(0);
 	current_mesh.push_back(1);
 
-	highlight_mesh = std::make_unique<j3e::Mesh>(j3e::Mesh(glm::vec2(0.52, -0.52), glm::vec2(-0.52, 0.52), highlight_vertices, indices, glm::vec3(2.0f, .0f, .0f), "res/img/brick.jpg"));
+	highlight_mesh = std::make_unique<j3e::Mesh>();
 	highlight_mesh->get_position() = level.meshes[0]->get_position();
 
 	update_highlight = false;

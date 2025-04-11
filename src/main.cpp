@@ -56,61 +56,6 @@ int main(){
 
 	float bottom_val = -0.5f;
 
-	std::vector<float> vertices = {
-		// !back
-		-0.5f, bottom_val, -0.5f,  0.0f, 0.0f,
-		0.5f, bottom_val, -0.5f,	  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,   1.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,   1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, bottom_val, -0.5f,  0.0f, 0.0f,
-
-		// !front
-		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
-		0.5f, bottom_val,  0.5f,   1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,   1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,   1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
-
-		// !right
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
-		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
-		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		// !left
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
-		0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
-		0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		// !bottom
-		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
-		0.5f, bottom_val, -0.5f,   1.0f, 1.0f,
-		0.5f, bottom_val,  0.5f,   1.0f, 0.0f,
-		0.5f, bottom_val,  0.5f,   1.0f, 0.0f,
-		-0.5f, bottom_val,  0.5f,  0.0f, 0.0f,
-		-0.5f, bottom_val, -0.5f,  0.0f, 1.0f,
-
-		// !up
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,   1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,   1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,   1.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-	};
-
-	std::vector<unsigned int> indices = {
-		0, 1, 3,   // first triangle
-		1, 2, 3    // second triangle
-	};
-
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1000.0f / 1000.0f, 0.1f, 100.0f);
 	float last_time = .0f;
