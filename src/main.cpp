@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <iostream>
+#include <memory>
 #include <ostream>
 #include <string>
 #include <vector>
@@ -18,6 +19,7 @@
 #include "globals.hpp"
 
 #include "hama.hpp"
+#include "mesh.hpp"
 #include "window.hpp"
 #include "input_manager.hpp"
 
@@ -64,7 +66,62 @@ int main(){
 
 	j3e::Shader highlight_shader = j3e::Shader("res/shaders/no_texture_vert.glsl", "res/shaders/fraghighlight.glsl");
 	char tmp[12] = "lvl";
-	hama::LevelEditor *editor = new hama::LevelEditor(vertices, indices, glm::vec2(-0.5, 0.5), "res/img/brick.jpg", tmp);
+	//hama::LevelEditor *editor = new hama::LevelEditor(vertices, indices, glm::vec2(-0.5, 0.5), "res/img/brick.jpg", tmp);
+
+	std::vector<j3e::Vertex> vertices = {
+		// back
+		{{-0.5f, bottom_val, -0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
+		{{ 0.5f, bottom_val, -0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+		{{ 0.5f,  0.5f,     -0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},
+		{{ 0.5f,  0.5f,     -0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},
+		{{-0.5f,  0.5f,     -0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
+		{{-0.5f, bottom_val, -0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
+
+		// front
+		{{-0.5f, bottom_val,  0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
+		{{ 0.5f, bottom_val,  0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+		{{ 0.5f,  0.5f,      0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},
+		{{ 0.5f,  0.5f,      0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},
+		{{-0.5f,  0.5f,      0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
+		{{-0.5f, bottom_val,  0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
+
+		// right
+		{{-0.5f,  0.5f,  0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+		{{-0.5f,  0.5f, -0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},
+		{{-0.5f, bottom_val, -0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
+		{{-0.5f, bottom_val, -0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
+		{{-0.5f, bottom_val,  0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
+		{{-0.5f,  0.5f,  0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+
+		// left
+		{{ 0.5f,  0.5f,  0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+		{{ 0.5f,  0.5f, -0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},
+		{{ 0.5f, bottom_val, -0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
+		{{ 0.5f, bottom_val, -0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
+		{{ 0.5f, bottom_val,  0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
+		{{ 0.5f,  0.5f,  0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+
+		// bottom
+		{{-0.5f, bottom_val, -0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
+		{{ 0.5f, bottom_val, -0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},
+		{{ 0.5f, bottom_val,  0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+		{{ 0.5f, bottom_val,  0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+		{{-0.5f, bottom_val,  0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
+		{{-0.5f, bottom_val, -0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
+
+		// up
+		{{-0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
+		{{ 0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},
+		{{ 0.5f, 0.5f,  0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+		{{ 0.5f, 0.5f,  0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+		{{-0.5f, 0.5f,  0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
+		{{-0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
+	};
+
+	std::vector<j3e::Texture> textures;
+	textures.push_back(j3e::Texture{.id=j3e::texture_from_file("brick.jpg").first, .type=j3e::TexType::Diffuse, .path="brick.png"});
+
+	std::unique_ptr<j3e::Mesh> mesh = std::make_unique<j3e::Mesh>(vertices, , textures, textures);
 
 	glViewport(0, 0, 1280, 720);
 
@@ -96,7 +153,7 @@ int main(){
 
 		window.input(j3e::getDeltaTime(*global.last_time), camera);
 
-		editor->Draw(highlight_shader);
+		//editor->Draw(highlight_shader);
 
 		*global.projection = glm::perspective(glm::radians(camera.Zoom), (float)1000 / (float)1000, 0.1f, 100.0f);
 		*global.view = camera.GetViewMatrix();
@@ -110,7 +167,7 @@ int main(){
 		}
 		ImGui::End();
 
-		editor->Draw_UI();
+		//editor->Draw_UI();
 
 		ImGui::PopFont();
 
@@ -126,11 +183,11 @@ int main(){
 
 		if(j3e::InputManager::IsKeyPressed(GLFW_KEY_ENTER)){
 			//if((*global.chat_logs).size() < 10){
-				for(auto& text : (*global.chat_logs)){
-					text.y -= 32;
-				}
-				int y = window.get_window_size().second - 32;
-				global.chat_logs->push_back({y, "kimak"});
+			for(auto& text : (*global.chat_logs)){
+				text.y -= 32;
+			}
+			int y = window.get_window_size().second - 32;
+			global.chat_logs->push_back({y, "kimak"});
 			//}
 			//else{
 			//}

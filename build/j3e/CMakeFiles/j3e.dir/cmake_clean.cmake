@@ -11,8 +11,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/j3e.dir/src/shader.cpp.o.d"
   "CMakeFiles/j3e.dir/src/stb.cpp.o"
   "CMakeFiles/j3e.dir/src/stb.cpp.o.d"
-  "CMakeFiles/j3e.dir/src/texture.cpp.o"
-  "CMakeFiles/j3e.dir/src/texture.cpp.o.d"
   "CMakeFiles/j3e.dir/src/window.cpp.o"
   "CMakeFiles/j3e.dir/src/window.cpp.o.d"
   "libj3ed.a"

@@ -14,7 +14,6 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/dave/Documents/c++/J3C/j3e/src/mesh.cpp" "j3e/CMakeFiles/j3e.dir/src/mesh.cpp.o" "gcc" "j3e/CMakeFiles/j3e.dir/src/mesh.cpp.o.d"
   "/home/dave/Documents/c++/J3C/j3e/src/shader.cpp" "j3e/CMakeFiles/j3e.dir/src/shader.cpp.o" "gcc" "j3e/CMakeFiles/j3e.dir/src/shader.cpp.o.d"
   "/home/dave/Documents/c++/J3C/j3e/src/stb.cpp" "j3e/CMakeFiles/j3e.dir/src/stb.cpp.o" "gcc" "j3e/CMakeFiles/j3e.dir/src/stb.cpp.o.d"
-  "/home/dave/Documents/c++/J3C/j3e/src/texture.cpp" "j3e/CMakeFiles/j3e.dir/src/texture.cpp.o" "gcc" "j3e/CMakeFiles/j3e.dir/src/texture.cpp.o.d"
   "/home/dave/Documents/c++/J3C/j3e/src/window.cpp" "j3e/CMakeFiles/j3e.dir/src/window.cpp.o" "gcc" "j3e/CMakeFiles/j3e.dir/src/window.cpp.o.d"
   )
 

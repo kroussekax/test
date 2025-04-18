@@ -1,6 +1,8 @@
 #include "mesh.hpp"
-#include "texture.hpp"
 
+#include <cstdio>
+#include <iostream>
+#include <ostream>
 #include <string>
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -10,7 +12,51 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
+#include <stb_image.h>
+#include <utility>
+
 namespace j3e{
+
+std::pair<unsigned int, const char*> TextureFromFile(const char *path, const char* &directory, bool gamma)
+{
+	std::string filename = directory;
+    filename.append(path);
+
+    unsigned int textureID;
+    glGenTextures(1, &textureID);
+
+    int width, height, nrComponents;
+    unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+    if (data)
+    {
+        GLenum format;
+        if (nrComponents == 1)
+            format = GL_RED;
+        else if (nrComponents == 3)
+            format = GL_RGB;
+        else if (nrComponents == 4)
+            format = GL_RGBA;
+
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        stbi_image_free(data);
+    }
+    else
+    {
+        std::cout << "Texture failed to load at path: " << path << std::endl;
+        stbi_image_free(data);
+    }
+
+    return {textureID, filename.c_str()};
+}
+
 void Mesh::Draw(Shader &shader){
 	unsigned int diffuse_num = 1;
 	unsigned int specular_num = 1;
@@ -18,18 +64,19 @@ void Mesh::Draw(Shader &shader){
 		glActiveTexture(GL_TEXTURE0 + i);
 
 		int number;
-		if(textures[i].tex_type == TexType::Diffuse)
+		if(textures[i].type == TexType::Diffuse)
 			number = diffuse_num++;
-		else if(textures[i].tex_type == TexType::Specular)
+		else if(textures[i].type == TexType::Specular)
 				number = specular_num++;
 
-		std::string name = TexType_to_string[textures[i].tex_type] + std::to_string(number);
+		std::string name = TexType_to_string[textures[i].type] + std::to_string(number);
 		shader.setInt(name, i);
 	}
 	glActiveTexture(GL_TEXTURE0);
 
 	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	//glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
 }
 
